@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://adp.prev.gov.ar" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://adp.prev.gov.ar" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://adp.prev.gov.ar">
+      <s:element name="ObtenerEstadoCivil">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cuil" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cuil_rela" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="f_desde" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="f_hasta" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Base" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tipo_busqueda" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nro_pagina_entrada" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerEstadoCivilResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerEstadoCivilResult" type="tns:ListaPW10" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ListaPW10">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="cod_retorno" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="desc_mensaje" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cod_error" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cod_gravedad" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="tot_ocur" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="cant_reg_parcial" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lista" type="tns:ArrayOfDatosPW10" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDatosPW10">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DatosPW10" nillable="true" type="tns:DatosPW10" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DatosPW10">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="cuil_rela" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="f_desde" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="c_estcivil" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="f_desde_ec" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="c_docrespal" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="tipo_docrespal" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="leg_unico" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ape_nom" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Base" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListaPW10" nillable="true" type="tns:ListaPW10" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ObtenerEstadoCivilSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerEstadoCivil" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerEstadoCivilSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerEstadoCivilResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerEstadoCivilHttpGetIn">
+    <wsdl:part name="cuil" type="s:string" />
+    <wsdl:part name="cuil_rela" type="s:string" />
+    <wsdl:part name="f_desde" type="s:string" />
+    <wsdl:part name="f_hasta" type="s:string" />
+    <wsdl:part name="Base" type="s:string" />
+    <wsdl:part name="tipo_busqueda" type="s:string" />
+    <wsdl:part name="nro_pagina_entrada" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerEstadoCivilHttpGetOut">
+    <wsdl:part name="Body" element="tns:ListaPW10" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerEstadoCivilHttpPostIn">
+    <wsdl:part name="cuil" type="s:string" />
+    <wsdl:part name="cuil_rela" type="s:string" />
+    <wsdl:part name="f_desde" type="s:string" />
+    <wsdl:part name="f_hasta" type="s:string" />
+    <wsdl:part name="Base" type="s:string" />
+    <wsdl:part name="tipo_busqueda" type="s:string" />
+    <wsdl:part name="nro_pagina_entrada" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerEstadoCivilHttpPostOut">
+    <wsdl:part name="Body" element="tns:ListaPW10" />
+  </wsdl:message>
+  <wsdl:portType name="WS_PW10Soap">
+    <wsdl:operation name="ObtenerEstadoCivil">
+      <wsdl:input message="tns:ObtenerEstadoCivilSoapIn" />
+      <wsdl:output message="tns:ObtenerEstadoCivilSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WS_PW10HttpGet">
+    <wsdl:operation name="ObtenerEstadoCivil">
+      <wsdl:input message="tns:ObtenerEstadoCivilHttpGetIn" />
+      <wsdl:output message="tns:ObtenerEstadoCivilHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WS_PW10HttpPost">
+    <wsdl:operation name="ObtenerEstadoCivil">
+      <wsdl:input message="tns:ObtenerEstadoCivilHttpPostIn" />
+      <wsdl:output message="tns:ObtenerEstadoCivilHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WS_PW10Soap" type="tns:WS_PW10Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerEstadoCivil">
+      <soap:operation soapAction="http://adp.prev.gov.ar/ObtenerEstadoCivil" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_PW10Soap12" type="tns:WS_PW10Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerEstadoCivil">
+      <soap12:operation soapAction="http://adp.prev.gov.ar/ObtenerEstadoCivil" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_PW10HttpGet" type="tns:WS_PW10HttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="ObtenerEstadoCivil">
+      <http:operation location="/ObtenerEstadoCivil" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_PW10HttpPost" type="tns:WS_PW10HttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="ObtenerEstadoCivil">
+      <http:operation location="/ObtenerEstadoCivil" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WS_PW10">
+    <wsdl:port name="WS_PW10Soap" binding="tns:WS_PW10Soap">
+      <soap:address location="http://prevaplsw01/ADP_Relaciones_Cons/WsPw10.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WS_PW10Soap12" binding="tns:WS_PW10Soap12">
+      <soap12:address location="http://prevaplsw01/ADP_Relaciones_Cons/WsPw10.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WS_PW10HttpGet" binding="tns:WS_PW10HttpGet">
+      <http:address location="http://prevaplsw01/ADP_Relaciones_Cons/WsPw10.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WS_PW10HttpPost" binding="tns:WS_PW10HttpPost">
+      <http:address location="http://prevaplsw01/ADP_Relaciones_Cons/WsPw10.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

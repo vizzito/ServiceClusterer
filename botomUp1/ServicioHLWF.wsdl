@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://mihlab.prev.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://mihlab.prev.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://mihlab.prev.gov.ar/">
+      <s:element name="TraerDatosAfiliaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="clavesAsociadas" type="tns:ArrayOfClaveAsociada" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfClaveAsociada">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClaveAsociada" type="tns:ClaveAsociada" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClaveAsociada">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cuil" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Homonimo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProvinciaDeEmision" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApellidoNombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FechaNacimiento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FechaNacimientoMostrar" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nacionalidad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sexo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorRegistro" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Seleccionado" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="TraerDatosAfiliacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TraerDatosAfiliacionesResult" type="tns:ResultadoOfDatoAfiliacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResultadoOfDatoAfiliacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Error" type="tns:Error" />
+          <s:element minOccurs="0" maxOccurs="1" name="Datos" type="tns:ArrayOfDatoAfiliacion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Error">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoHost" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionHost" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoPc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionPc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoDeError" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Transaccion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Rutina" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tabla" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Accion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SqlCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDatoAfiliacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DatoAfiliacion" type="tns:DatoAfiliacion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DatoAfiliacion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cuil" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroDoc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoDoc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LugarEmision" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Homonimo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApellidoYNombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroDeAfiliado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExCaja" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionExCaja" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FechaDeAfiliacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FechaDeIngresoEmp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroInscripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CEstado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="COrigenEstado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEstado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MRegFirmas" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CAcreditacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroRegistro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MarcaSeleccion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="TraerDatosAfiliacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:TraerDatosAfiliaciones" />
+  </wsdl:message>
+  <wsdl:message name="TraerDatosAfiliacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:TraerDatosAfiliacionesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServicioHLWFSoap">
+    <wsdl:operation name="TraerDatosAfiliaciones">
+      <wsdl:input message="tns:TraerDatosAfiliacionesSoapIn" />
+      <wsdl:output message="tns:TraerDatosAfiliacionesSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServicioHLWFSoap" type="tns:ServicioHLWFSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TraerDatosAfiliaciones">
+      <soap:operation soapAction="http://mihlab.prev.gov.ar/TraerDatosAfiliaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServicioHLWFSoap12" type="tns:ServicioHLWFSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TraerDatosAfiliaciones">
+      <soap12:operation soapAction="http://mihlab.prev.gov.ar/TraerDatosAfiliaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServicioHLWF">
+    <wsdl:port name="ServicioHLWFSoap" binding="tns:ServicioHLWFSoap">
+      <soap:address location="http://localhost:49172/ServicioHLWF.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServicioHLWFSoap12" binding="tns:ServicioHLWFSoap12">
+      <soap12:address location="http://localhost:49172/ServicioHLWF.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

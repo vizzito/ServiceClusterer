@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://adp.prev.gov.ar" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://adp.prev.gov.ar" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://adp.prev.gov.ar">
+      <s:element name="ObtenerDatosEstadoCivil">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cuil" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cuil_rela" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="c_relacion" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="f_desde" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="c_estcivil" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="f_desde_ec" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Base" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosEstadoCivilResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDatosEstadoCivilResult" type="tns:DatosEstadoCivil" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DatosEstadoCivil">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="cod_retorno" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="desc_mensaje" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cod_error" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cod_gravedad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cuil_rela" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="c_relacion" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="da_relacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="f_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="f_hasta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="f_vig_hasta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="f_alta" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="c_estcivil_ec" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="f_desde_ec" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="c_sistema_origen" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cuit_empleador" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="c_udai" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="c_docrespal" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="tipo_docrespal" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="leg_unico" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="d_leg_unico" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="f_ultmodi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="h_ultmodi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="tipo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ape_nom" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="doc_c_tipo" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="doc_nro" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="doc_copia" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="f_naci" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="c_sexo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="c_pais" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="f_falle" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="c_est_grcon" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="c_est_ente" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="c_estcivil" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="c_org" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="pre_cuil" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="doc_cuil" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="dig_cuil" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="c_tipo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="c_seq" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="periodo_mm" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="periodo_aa" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Base" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DatosEstadoCivil" nillable="true" type="tns:DatosEstadoCivil" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ObtenerDatosEstadoCivilSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosEstadoCivil" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosEstadoCivilSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosEstadoCivilResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosEstadoCivilHttpGetIn">
+    <wsdl:part name="cuil" type="s:string" />
+    <wsdl:part name="cuil_rela" type="s:string" />
+    <wsdl:part name="c_relacion" type="s:string" />
+    <wsdl:part name="f_desde" type="s:string" />
+    <wsdl:part name="c_estcivil" type="s:string" />
+    <wsdl:part name="f_desde_ec" type="s:string" />
+    <wsdl:part name="Base" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosEstadoCivilHttpGetOut">
+    <wsdl:part name="Body" element="tns:DatosEstadoCivil" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosEstadoCivilHttpPostIn">
+    <wsdl:part name="cuil" type="s:string" />
+    <wsdl:part name="cuil_rela" type="s:string" />
+    <wsdl:part name="c_relacion" type="s:string" />
+    <wsdl:part name="f_desde" type="s:string" />
+    <wsdl:part name="c_estcivil" type="s:string" />
+    <wsdl:part name="f_desde_ec" type="s:string" />
+    <wsdl:part name="Base" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosEstadoCivilHttpPostOut">
+    <wsdl:part name="Body" element="tns:DatosEstadoCivil" />
+  </wsdl:message>
+  <wsdl:portType name="DatosdeEstadoCivilSoap">
+    <wsdl:operation name="ObtenerDatosEstadoCivil">
+      <wsdl:input message="tns:ObtenerDatosEstadoCivilSoapIn" />
+      <wsdl:output message="tns:ObtenerDatosEstadoCivilSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="DatosdeEstadoCivilHttpGet">
+    <wsdl:operation name="ObtenerDatosEstadoCivil">
+      <wsdl:input message="tns:ObtenerDatosEstadoCivilHttpGetIn" />
+      <wsdl:output message="tns:ObtenerDatosEstadoCivilHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="DatosdeEstadoCivilHttpPost">
+    <wsdl:operation name="ObtenerDatosEstadoCivil">
+      <wsdl:input message="tns:ObtenerDatosEstadoCivilHttpPostIn" />
+      <wsdl:output message="tns:ObtenerDatosEstadoCivilHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DatosdeEstadoCivilSoap" type="tns:DatosdeEstadoCivilSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerDatosEstadoCivil">
+      <soap:operation soapAction="http://adp.prev.gov.ar/ObtenerDatosEstadoCivil" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DatosdeEstadoCivilSoap12" type="tns:DatosdeEstadoCivilSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerDatosEstadoCivil">
+      <soap12:operation soapAction="http://adp.prev.gov.ar/ObtenerDatosEstadoCivil" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DatosdeEstadoCivilHttpGet" type="tns:DatosdeEstadoCivilHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="ObtenerDatosEstadoCivil">
+      <http:operation location="/ObtenerDatosEstadoCivil" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DatosdeEstadoCivilHttpPost" type="tns:DatosdeEstadoCivilHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="ObtenerDatosEstadoCivil">
+      <http:operation location="/ObtenerDatosEstadoCivil" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DatosdeEstadoCivil">
+    <wsdl:port name="DatosdeEstadoCivilSoap" binding="tns:DatosdeEstadoCivilSoap">
+      <soap:address location="http://prevaplsw01/ADP_Relaciones_Cons/DatosdeEstadoCivil.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DatosdeEstadoCivilSoap12" binding="tns:DatosdeEstadoCivilSoap12">
+      <soap12:address location="http://prevaplsw01/ADP_Relaciones_Cons/DatosdeEstadoCivil.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DatosdeEstadoCivilHttpGet" binding="tns:DatosdeEstadoCivilHttpGet">
+      <http:address location="http://prevaplsw01/ADP_Relaciones_Cons/DatosdeEstadoCivil.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DatosdeEstadoCivilHttpPost" binding="tns:DatosdeEstadoCivilHttpPost">
+      <http:address location="http://prevaplsw01/ADP_Relaciones_Cons/DatosdeEstadoCivil.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

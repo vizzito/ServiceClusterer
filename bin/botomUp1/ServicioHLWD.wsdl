@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://mihlab.prev.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://mihlab.prev.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://mihlab.prev.gov.ar/">
+      <s:element name="TraerDatosPosteriorJulio94">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cuil" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="marcaSeleccion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TraerDatosPosteriorJulio94Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TraerDatosPosteriorJulio94Result" type="tns:ResultadoOfDatoPosteriorJulio94" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResultadoOfDatoPosteriorJulio94">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Error" type="tns:Error" />
+          <s:element minOccurs="0" maxOccurs="1" name="Datos" type="tns:ArrayOfDatoPosteriorJulio94" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Error">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoHost" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionHost" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoPc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionPc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoDeError" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Transaccion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Rutina" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tabla" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Accion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SqlCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDatoPosteriorJulio94">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DatoPosteriorJulio94" nillable="true" type="tns:DatoPosteriorJulio94" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DatoPosteriorJulio94">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cuil" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuilDDJJ" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cuit" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitDDJJ" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RazonSocial" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Periodo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoPresentacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MTransferencia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MReversion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RemuneracionImponible" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AporteObligSS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MObligacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CActividad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CEstado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="COrigenEstado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEstado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CAcreditacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MConTransferencia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroRegistrado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MarcaSeleccion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Filler" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuilAsociado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransReversion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="TraerDatosPosteriorJulio94SoapIn">
+    <wsdl:part name="parameters" element="tns:TraerDatosPosteriorJulio94" />
+  </wsdl:message>
+  <wsdl:message name="TraerDatosPosteriorJulio94SoapOut">
+    <wsdl:part name="parameters" element="tns:TraerDatosPosteriorJulio94Response" />
+  </wsdl:message>
+  <wsdl:portType name="ServicioHLWDSoap">
+    <wsdl:operation name="TraerDatosPosteriorJulio94">
+      <wsdl:input message="tns:TraerDatosPosteriorJulio94SoapIn" />
+      <wsdl:output message="tns:TraerDatosPosteriorJulio94SoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServicioHLWDSoap" type="tns:ServicioHLWDSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TraerDatosPosteriorJulio94">
+      <soap:operation soapAction="http://mihlab.prev.gov.ar/TraerDatosPosteriorJulio94" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServicioHLWDSoap12" type="tns:ServicioHLWDSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TraerDatosPosteriorJulio94">
+      <soap12:operation soapAction="http://mihlab.prev.gov.ar/TraerDatosPosteriorJulio94" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServicioHLWD">
+    <wsdl:port name="ServicioHLWDSoap" binding="tns:ServicioHLWDSoap">
+      <soap:address location="http://localhost:49172/ServicioHLWD.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServicioHLWDSoap12" binding="tns:ServicioHLWDSoap12">
+      <soap12:address location="http://localhost:49172/ServicioHLWD.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

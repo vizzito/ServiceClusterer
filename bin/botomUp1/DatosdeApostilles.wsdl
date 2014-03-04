@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://adp.prev.gov.ar" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://adp.prev.gov.ar" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://adp.prev.gov.ar">
+      <s:element name="ObtenerDatosApostille">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cuil" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cuil_rela" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="c_relacion" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="f_desde" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="c_docrespal" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="Base" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosApostilleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDatosApostilleResult" type="tns:RetornoDatosdeApostilles" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RetornoDatosdeApostilles">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="error" type="tns:Error" />
+          <s:element minOccurs="0" maxOccurs="1" name="DatosdeApostilles" type="tns:DatosApostilles" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Error">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="cod_retorno" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="desc_mensaje" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cod_error" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cod_gravedad" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DatosApostilles">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="cuil" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="f_desde" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="c_docrespal" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="c_pais" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="lugar" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ape_nom_padre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="tribunal" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="c_tipo_docorigen" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="f_docorigen" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="tomo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="folio" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="partida" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="c_ente_info" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="c_udai" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cuit_empleador" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="f_modif" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="leg_unico" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="d_leg_unico" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="c_org" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="pre_cuil" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="doc_cuil" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="dig_cuil" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="c_tipo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="c_seq" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="periodo_mm" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="periodo_aa" type="s:short" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RetornoDatosdeApostilles" nillable="true" type="tns:RetornoDatosdeApostilles" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ObtenerDatosApostilleSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosApostille" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosApostilleSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosApostilleResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosApostilleHttpGetIn">
+    <wsdl:part name="cuil" type="s:string" />
+    <wsdl:part name="cuil_rela" type="s:string" />
+    <wsdl:part name="c_relacion" type="s:string" />
+    <wsdl:part name="f_desde" type="s:string" />
+    <wsdl:part name="c_docrespal" type="s:string" />
+    <wsdl:part name="Base" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosApostilleHttpGetOut">
+    <wsdl:part name="Body" element="tns:RetornoDatosdeApostilles" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosApostilleHttpPostIn">
+    <wsdl:part name="cuil" type="s:string" />
+    <wsdl:part name="cuil_rela" type="s:string" />
+    <wsdl:part name="c_relacion" type="s:string" />
+    <wsdl:part name="f_desde" type="s:string" />
+    <wsdl:part name="c_docrespal" type="s:string" />
+    <wsdl:part name="Base" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosApostilleHttpPostOut">
+    <wsdl:part name="Body" element="tns:RetornoDatosdeApostilles" />
+  </wsdl:message>
+  <wsdl:portType name="DatosdeApostillesSoap">
+    <wsdl:operation name="ObtenerDatosApostille">
+      <wsdl:input message="tns:ObtenerDatosApostilleSoapIn" />
+      <wsdl:output message="tns:ObtenerDatosApostilleSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="DatosdeApostillesHttpGet">
+    <wsdl:operation name="ObtenerDatosApostille">
+      <wsdl:input message="tns:ObtenerDatosApostilleHttpGetIn" />
+      <wsdl:output message="tns:ObtenerDatosApostilleHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="DatosdeApostillesHttpPost">
+    <wsdl:operation name="ObtenerDatosApostille">
+      <wsdl:input message="tns:ObtenerDatosApostilleHttpPostIn" />
+      <wsdl:output message="tns:ObtenerDatosApostilleHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DatosdeApostillesSoap" type="tns:DatosdeApostillesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerDatosApostille">
+      <soap:operation soapAction="http://adp.prev.gov.ar/ObtenerDatosApostille" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DatosdeApostillesSoap12" type="tns:DatosdeApostillesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerDatosApostille">
+      <soap12:operation soapAction="http://adp.prev.gov.ar/ObtenerDatosApostille" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DatosdeApostillesHttpGet" type="tns:DatosdeApostillesHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="ObtenerDatosApostille">
+      <http:operation location="/ObtenerDatosApostille" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DatosdeApostillesHttpPost" type="tns:DatosdeApostillesHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="ObtenerDatosApostille">
+      <http:operation location="/ObtenerDatosApostille" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DatosdeApostilles">
+    <wsdl:port name="DatosdeApostillesSoap" binding="tns:DatosdeApostillesSoap">
+      <soap:address location="http://prevaplsw01/ADP_Relaciones_Cons/DatosdeApostilles.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DatosdeApostillesSoap12" binding="tns:DatosdeApostillesSoap12">
+      <soap12:address location="http://prevaplsw01/ADP_Relaciones_Cons/DatosdeApostilles.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DatosdeApostillesHttpGet" binding="tns:DatosdeApostillesHttpGet">
+      <http:address location="http://prevaplsw01/ADP_Relaciones_Cons/DatosdeApostilles.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DatosdeApostillesHttpPost" binding="tns:DatosdeApostillesHttpPost">
+      <http:address location="http://prevaplsw01/ADP_Relaciones_Cons/DatosdeApostilles.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
