@@ -2,6 +2,7 @@ package org.clusterer.services;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -35,47 +36,13 @@ public class ServicesAPI extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		
+		request.getParameterMap();
+		String top = request.getParameter("topsimil");
 		PrintWriter out = response.getWriter();
 		
-		System.setProperty("user.dir","/home/panther/Escritorio/tesis/Fuentes-Prototipo/WebServicesClusterer");
-		String userdir=System.getProperty("user.dir");
-		list.add(new URL("file:" + userdir + "/botomUp1/busquedarub.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/DatosdePersonaporCuip.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/InformacionDePersona.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/DatosdePersona.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/DatosdeEstadoCivil.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/DatosdeDictamenes.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/AltadeRelaciones.wsdl"));
-//		
-		list.add(new URL("file:" + userdir + "/botomUp1/CambiodeEst_GC_SinModif_DatosFiliatorios_AccionesdeActualizacion.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/ConsultaDeHijos.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/DatosdeApostilles.wsdl"));
-//		
-//		
-		list.add(new URL("file:" + userdir + "/botomUp1/DatosdePartida.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/DatosdeSentencia.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/DatosInfoSumarialyDDJJ.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/Est_GC_Reversion.wsdl"));
-//		
-		list.add(new URL("file:" + userdir + "/botomUp1/ListadoPersxDoc.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWA.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWB.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWC.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWD.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWE.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWF.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWH.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWR.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWT.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWV.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/ValidaciondePartida.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/ValidaciondeRelaciones.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/WsPw01.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/WsPw02.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/WsPw03.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/WsPw04.wsdl"));
-		list.add(new URL("file:" + userdir + "/botomUp1/WsPw10.wsdl"));
-
+		
+		
 		DataReader data = new HEBServiceAdapter(list,
 				BOTTHRESHOLD / 100.0,
 				TOPTHRESHOLD / 100.0);
@@ -88,6 +55,26 @@ public class ServicesAPI extends HttpServlet {
 		String json = createJsonData(data);
 		out.println(json);
 	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		request.getParameterMap();
+		int TOPTHRESHOLD = Integer.parseInt(request.getParameter("topsimil"));
+		int BOTTHRESHOLD = Integer.parseInt(request.getParameter("bottomsimil"));
+		generateListFiles();
+		DataReader data = new HEBServiceAdapter(list,
+				BOTTHRESHOLD / 100.0,
+				TOPTHRESHOLD / 100.0);
+
+		String json = createJsonData(data);
+		PrintWriter out = response.getWriter();
+		out.println(json);
+	}
 	
 	 private String createJsonData(DataReader jsonData){
 	    	Object dataObject = new Object();
@@ -96,7 +83,6 @@ public class ServicesAPI extends HttpServlet {
 	    	Hashtable<Integer, Integer> parentsMap = new Hashtable<Integer,Integer>();
 	    	AbstractMap<Integer,String> namesMap = jsonData.getNamesMap();
 	    	List arrayResult = new ArrayList();
-	    	
 	    	
 	    	int countNodes = jsonData.getNodesCount();
 	    	for(int i=2;i<countNodes;i++){
@@ -144,14 +130,46 @@ public class ServicesAPI extends HttpServlet {
 	    		return r;
 	    	}
 	    }
-	    
+	private void generateListFiles() throws MalformedURLException{
+		System.setProperty("user.dir","/home/panther/Escritorio/tesis/Fuentes-Prototipo/WebServicesClusterer");
+		String userdir=System.getProperty("user.dir");
+		list.add(new URL("file:" + userdir + "/botomUp1/busquedarub.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/DatosdePersonaporCuip.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/InformacionDePersona.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/DatosdePersona.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/DatosdeEstadoCivil.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/DatosdeDictamenes.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/AltadeRelaciones.wsdl"));
+//		
+		list.add(new URL("file:" + userdir + "/botomUp1/CambiodeEst_GC_SinModif_DatosFiliatorios_AccionesdeActualizacion.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/ConsultaDeHijos.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/DatosdeApostilles.wsdl"));
+//		
+//		
+		list.add(new URL("file:" + userdir + "/botomUp1/DatosdePartida.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/DatosdeSentencia.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/DatosInfoSumarialyDDJJ.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/Est_GC_Reversion.wsdl"));
+//		
+		list.add(new URL("file:" + userdir + "/botomUp1/ListadoPersxDoc.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWA.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWB.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWC.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWD.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWE.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWF.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWH.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWR.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWT.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWV.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/ValidaciondePartida.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/ValidaciondeRelaciones.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/WsPw01.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/WsPw02.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/WsPw03.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/WsPw04.wsdl"));
+		list.add(new URL("file:" + userdir + "/botomUp1/WsPw10.wsdl"));
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
+	    
 }

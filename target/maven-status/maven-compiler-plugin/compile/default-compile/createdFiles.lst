@@ -4,7 +4,6 @@ org/clusterer/services/response/Response.class
 org/clusterer/util/OperationNode.class
 org/clusterer/edgebundles/tree/TreeNode.class
 org/clusterer/services/response/VisualTreeResponse.class
-org/clusterer/services/HelloWorld.class
 org/clusterer/ws/handler/ClusteringHandler.class
 org/clusterer/similarity/ISimilarityFunction.class
 org/clusterer/ws/handler/OperarionSimilarityHandler.class

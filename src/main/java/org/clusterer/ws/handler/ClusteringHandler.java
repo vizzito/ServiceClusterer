@@ -76,7 +76,7 @@ public class ClusteringHandler {
 			Description description = readLocation(documentURL);
 			//For testing purposes: For now, we can focus on SOAP operations (in general, the first portType given by parsers)
 			//So far, clustering HTTP operations with SOAP operations does not make sense.
-		//	for (InterfaceType portType : description.getInterfaces()) {
+			//for (InterfaceType portType : description.getInterfaces()) {
 				InterfaceType portType = description.getInterfaces().get(0);
 				for (Operation operation : portType.getOperations()) {
 					operations.add(operation);
