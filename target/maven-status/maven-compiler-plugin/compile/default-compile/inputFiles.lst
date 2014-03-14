@@ -7,7 +7,6 @@
 /home/panther/workspace/ServiceClusterer/src/main/java/org/clusterer/services/response/VisualTreeResponse.java
 /home/panther/workspace/ServiceClusterer/src/main/java/org/clusterer/edgebundles/tree/TreeNode.java
 /home/panther/workspace/ServiceClusterer/src/main/java/org/clusterer/util/OperationNode.java
-/home/panther/workspace/ServiceClusterer/src/main/java/org/clusterer/services/HelloWorld.java
 /home/panther/workspace/ServiceClusterer/src/main/java/org/clusterer/util/Pair.java
 /home/panther/workspace/ServiceClusterer/src/main/java/org/clusterer/edgebundles/io/HEBServiceAdapter.java
 /home/panther/workspace/ServiceClusterer/src/main/java/org/clusterer/ws/handler/OperarionSimilarityHandler.java
