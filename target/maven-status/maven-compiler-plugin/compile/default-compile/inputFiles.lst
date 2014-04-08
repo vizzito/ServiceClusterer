@@ -2,6 +2,7 @@
 /home/panther/workspace/ServiceClusterer/src/main/java/org/clusterer/ws/handler/ServicesMediator.java
 /home/panther/workspace/ServiceClusterer/src/main/java/org/clusterer/edgebundles/io/DataReader.java
 /home/panther/workspace/ServiceClusterer/src/main/java/org/clusterer/similarity/OverlappingSimilarityFunction.java
+/home/panther/workspace/ServiceClusterer/src/main/java/org/clusterer/services/request/TreeGeneratorRequest.java
 /home/panther/workspace/ServiceClusterer/src/main/java/org/clusterer/similarity/ISimilarityFunction.java
 /home/panther/workspace/ServiceClusterer/src/main/java/org/clusterer/util/DataTypeNode.java
 /home/panther/workspace/ServiceClusterer/src/main/java/org/clusterer/services/response/VisualTreeResponse.java

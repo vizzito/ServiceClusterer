@@ -15,3 +15,4 @@ org/clusterer/util/Pair.class
 org/clusterer/services/ServicesAPI.class
 org/clusterer/ws/handler/ServicesMediator.class
 org/clusterer/similarity/BaseSimilarityFunction.class
+org/clusterer/services/request/TreeGeneratorRequest.class
