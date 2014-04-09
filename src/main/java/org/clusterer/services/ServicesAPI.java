@@ -54,14 +54,14 @@ public class ServicesAPI extends HttpServlet {
 	private static int BOTTHRESHOLD = 30;
 	private static int TOPTHRESHOLD = 80;
 	private Properties prop;
-	private static final String DIRFILES = "/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer";
+	private static final String DIRFILES = "/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer";
 
 	public ServicesAPI() {
-		//TODO ver el tema de la carga del propertie file
-		//loadPropertyFile();
+		// TODO ver el tema de la carga del propertie file
+		// loadPropertyFile();
 	}
 
-	private void loadPropertyFile(){
+	private void loadPropertyFile() {
 		try {
 			prop = new Properties();
 			InputStream input = null;
@@ -72,8 +72,9 @@ public class ServicesAPI extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 
+
 	}
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -98,7 +99,7 @@ public class ServicesAPI extends HttpServlet {
 	}
 
 	private String extractFileName(Part part) {
-		
+
 		String contentDisp = part.getHeader("content-disposition");
 		String[] items = contentDisp.split(";");
 		for (String s : items) {
@@ -115,52 +116,54 @@ public class ServicesAPI extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
 		list = new ArrayList<URL>();
 		FileItemFactory factory = new DiskFileItemFactory();
 		ServletFileUpload upload = new ServletFileUpload(factory);
 		try {
 			List<FileItem> fields = upload.parseRequest(request);
-			for (Iterator<FileItem> it = fields.iterator(); it.hasNext();){
-				FileItem fileItem = it.next();
-				if(!fileItem.isFormField()){
-					File fichero = new File(fileItem.getName());
-		               // nos quedamos solo con el nombre y descartamos el path
-					 String sRootPath = new File("").getAbsolutePath();
-					// String pathe = prop.getProperty("tomcat.dir");
-		             fichero = new  File(sRootPath +"/"+fichero.getName());
+			//synchronized (this) {
+				for (Iterator<FileItem> it = fields.iterator(); it.hasNext();) {
+					FileItem fileItem = it.next();
+					if (!fileItem.isFormField()) {
+						File fichero = new File(fileItem.getName());
+						// list.add(new URL("file:"
+						// +userdir+"/"+listOfFiles[i].getName()));
+						// nos quedamos solo con el nombre y descartamos el path
+						String sRootPath = new File("").getAbsolutePath();
+						// String pathe = prop.getProperty("tomcat.dir");
+						fichero = new File(DIRFILES + "/" + fichero.getName());
+						list.add(new URL("file:" + DIRFILES + "/"
+								+ fichero.getName()));
+						// escribimos el fichero colgando del nuevo path
+						try {
+							fileItem.write(fichero);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} else {
+						String name = fileItem.getFieldName();
 
-		             // escribimos el fichero colgando del nuevo path
-		             try {
-						fileItem.write(fichero);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						if (name.equals("files[bottomsimil]"))
+							BOTTHRESHOLD = Integer.parseInt(fileItem
+									.getString());
+
+						if (name.equals("files[topsimil]"))
+							TOPTHRESHOLD = Integer.parseInt(fileItem
+									.getString());
+
 					}
 				}
-				else{
-					String name = fileItem.getFieldName();
-				
-					if(name.equals("files[bottomsimil]"))
-						BOTTHRESHOLD = Integer.parseInt(fileItem.getString());
-						
-					if(name.equals("files[topsimil]"))
-						TOPTHRESHOLD = Integer.parseInt(fileItem.getString());
-					
-				}
-			}
-           
-		      
-		    
-			
-			
+
+			//}
+
 		} catch (FileUploadException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		generateListFiles();
-		DataReader data = new HEBServiceAdapter(list,
-				BOTTHRESHOLD / 100.0,
+		// generateListFiles();
+		DataReader data = new HEBServiceAdapter(list, BOTTHRESHOLD / 100.0,
 				TOPTHRESHOLD / 100.0);
 
 		String json = createJsonData(data);
@@ -222,89 +225,99 @@ public class ServicesAPI extends HttpServlet {
 		}
 	}
 
-	private void generateListFiles()
-			throws MalformedURLException {
-		System.setProperty("user.dir","/home/panther"+DIRFILES);
+	private void generateListFiles() throws MalformedURLException {
+		System.setProperty("user.dir", "/home/panther" + DIRFILES);
 		String userdir = System.getProperty("user.dir");
 
 		File folder = new File(userdir);
 		File[] listOfFiles = folder.listFiles();
-		for (int i=0;i<listOfFiles.length;i++){
-			if(listOfFiles[i].isFile())
-				list.add(new URL("file:" +userdir+"/"+listOfFiles[i].getName()));
+		for (int i = 0; i < listOfFiles.length; i++) {
+			if (listOfFiles[i].isFile())
+				list.add(new URL("file:" + userdir + "/"
+						+ listOfFiles[i].getName()));
 		}
-//		
-//		list.add(new URL("file:" + userdir + "/botomUp1/busquedarub.wsdl"));
-//		list.add(new URL("file:" + userdir
-//				+ "/botomUp1/DatosdePersonaporCuip.wsdl"));
-//		list.add(new URL("file:" + userdir
-//				+ "/botomUp1/InformacionDePersona.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/DatosdePersona.wsdl"));
-//		list.add(new URL("file:" + userdir
-//				+ "/botomUp1/DatosdeEstadoCivil.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/DatosdeDictamenes.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/AltadeRelaciones.wsdl"));
-//		list.add(new URL(
-//				"file:"
-//						+ userdir
-//						+ "/botomUp1/CambiodeEst_GC_SinModif_DatosFiliatorios_AccionesdeActualizacion.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/ConsultaDeHijos.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/DatosdeApostilles.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/DatosdePartida.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/DatosdeSentencia.wsdl"));
-//		list.add(new URL("file:" + userdir
-//				+ "/botomUp1/DatosInfoSumarialyDDJJ.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/Est_GC_Reversion.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/ListadoPersxDoc.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWA.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWB.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWC.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWD.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWE.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWF.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWH.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWR.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWT.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWV.wsdl"));
-//		list.add(new URL("file:" + userdir
-//				+ "/botomUp1/ValidaciondePartida.wsdl"));
-//		list.add(new URL("file:" + userdir
-//				+ "/botomUp1/ValidaciondeRelaciones.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/WsPw01.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/WsPw02.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/WsPw03.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/WsPw04.wsdl"));
-//		list.add(new URL("file:" + userdir + "/botomUp1/WsPw10.wsdl"));
+		//
+		// list.add(new URL("file:" + userdir + "/botomUp1/busquedarub.wsdl"));
+		// list.add(new URL("file:" + userdir
+		// + "/botomUp1/DatosdePersonaporCuip.wsdl"));
+		// list.add(new URL("file:" + userdir
+		// + "/botomUp1/InformacionDePersona.wsdl"));
+		// list.add(new URL("file:" + userdir +
+		// "/botomUp1/DatosdePersona.wsdl"));
+		// list.add(new URL("file:" + userdir
+		// + "/botomUp1/DatosdeEstadoCivil.wsdl"));
+		// list.add(new URL("file:" + userdir +
+		// "/botomUp1/DatosdeDictamenes.wsdl"));
+		// list.add(new URL("file:" + userdir +
+		// "/botomUp1/AltadeRelaciones.wsdl"));
+		// list.add(new URL(
+		// "file:"
+		// + userdir
+		// +
+		// "/botomUp1/CambiodeEst_GC_SinModif_DatosFiliatorios_AccionesdeActualizacion.wsdl"));
+		// list.add(new URL("file:" + userdir +
+		// "/botomUp1/ConsultaDeHijos.wsdl"));
+		// list.add(new URL("file:" + userdir +
+		// "/botomUp1/DatosdeApostilles.wsdl"));
+		// list.add(new URL("file:" + userdir +
+		// "/botomUp1/DatosdePartida.wsdl"));
+		// list.add(new URL("file:" + userdir +
+		// "/botomUp1/DatosdeSentencia.wsdl"));
+		// list.add(new URL("file:" + userdir
+		// + "/botomUp1/DatosInfoSumarialyDDJJ.wsdl"));
+		// list.add(new URL("file:" + userdir +
+		// "/botomUp1/Est_GC_Reversion.wsdl"));
+		// list.add(new URL("file:" + userdir +
+		// "/botomUp1/ListadoPersxDoc.wsdl"));
+		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWA.wsdl"));
+		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWB.wsdl"));
+		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWC.wsdl"));
+		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWD.wsdl"));
+		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWE.wsdl"));
+		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWF.wsdl"));
+		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWH.wsdl"));
+		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWR.wsdl"));
+		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWT.wsdl"));
+		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWV.wsdl"));
+		// list.add(new URL("file:" + userdir
+		// + "/botomUp1/ValidaciondePartida.wsdl"));
+		// list.add(new URL("file:" + userdir
+		// + "/botomUp1/ValidaciondeRelaciones.wsdl"));
+		// list.add(new URL("file:" + userdir + "/botomUp1/WsPw01.wsdl"));
+		// list.add(new URL("file:" + userdir + "/botomUp1/WsPw02.wsdl"));
+		// list.add(new URL("file:" + userdir + "/botomUp1/WsPw03.wsdl"));
+		// list.add(new URL("file:" + userdir + "/botomUp1/WsPw04.wsdl"));
+		// list.add(new URL("file:" + userdir + "/botomUp1/WsPw10.wsdl"));
 
 	}
-	
-	private String getParam(Part part) throws IOException{
+
+	private String getParam(Part part) throws IOException {
 		StringBuilder stringBuilder = new StringBuilder();
 		BufferedReader bufferedReader = null;
 		try {
-		  InputStream inputStream = part.getInputStream();
-		if (inputStream != null) {
-			   bufferedReader = new BufferedReader(new InputStreamReader(
-			inputStream));
-			   char[] charBuffer = new char[128];
-			   int bytesRead = -1;
-			   while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
-			    stringBuilder.append(charBuffer, 0, bytesRead);
-			   }
-			  } else {
-			   stringBuilder.append("");
-			  }
-			} catch (IOException ex) {
-			  throw ex;
-			} finally {
-			  if (bufferedReader != null) {
-			   try {
-			    bufferedReader.close();
-			   } catch (IOException ex) {
-			    throw ex;
-			   }
-			  }
-	     }
+			InputStream inputStream = part.getInputStream();
+			if (inputStream != null) {
+				bufferedReader = new BufferedReader(new InputStreamReader(
+						inputStream));
+				char[] charBuffer = new char[128];
+				int bytesRead = -1;
+				while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
+					stringBuilder.append(charBuffer, 0, bytesRead);
+				}
+			} else {
+				stringBuilder.append("");
+			}
+		} catch (IOException ex) {
+			throw ex;
+		} finally {
+			if (bufferedReader != null) {
+				try {
+					bufferedReader.close();
+				} catch (IOException ex) {
+					throw ex;
+				}
+			}
+		}
 		return stringBuilder.toString();
 	}
 
