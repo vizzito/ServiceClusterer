@@ -48,7 +48,7 @@ public class OperarionSimilarityHandler {
 			
 			System.out.println("Simil: " + simil );
 			ClusteringHandler ch=new ClusteringHandler();
-			List<List<Operation>> res=ch.clusterWSDLDocuments(WSDLLocations, simil);
+			List<List<Operation>> res=(List<List<Operation>>) ch.clusterWSDLDocuments(WSDLLocations, simil).get("clusterOperations");
 
 			for (Iterator<List<Operation>> i=res.iterator() ;i.hasNext();) {
 				List<Operation> group=i.next();

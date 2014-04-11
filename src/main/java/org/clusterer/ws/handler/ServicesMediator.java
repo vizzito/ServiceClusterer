@@ -2,6 +2,7 @@ package org.clusterer.ws.handler;
 
 import java.net.URL;
 import java.util.AbstractMap;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
@@ -16,7 +17,8 @@ public class ServicesMediator {
 		private ClusteringHandler ch;
 		private OperarionSimilarityHandler osh;
 		private List<URL> WSDLLocations;
-		private List<List<Operation>> clusteredOperations;
+		
+		private HashMap<String, Object> clusteredInfo;
 		AbstractMap <Pair,Double> relatedOperations;
 		private double topThreshold;
 		private double bottomThreshold;
@@ -31,8 +33,8 @@ public class ServicesMediator {
     	
     	private void doClustering() {
     		// operaciones agrupadas por similitud
-    		clusteredOperations=ch.clusterWSDLDocuments(WSDLLocations, topThreshold);
-    		
+    		clusteredInfo=ch.clusterWSDLDocuments(WSDLLocations, topThreshold);
+    		List<List<Operation>>clusteredOperations = (List<List<Operation>>) clusteredInfo.get("clusterOperations");
     		System.out.println("Cantidad de Grupos> " + clusteredOperations.size() + "threshold:" + topThreshold);
     		int inum=0;
     		List<Operation> lo;
@@ -73,8 +75,8 @@ public class ServicesMediator {
     		doSimilRelations();
     	}
     	
-    	public List<List<Operation>> getClusteredOperations() {
-    		return clusteredOperations;
+    	public HashMap<String, Object> getClusteredOperations() {
+    		return clusteredInfo;
     	}
     	
     	public AbstractMap <Pair,Double> getRelatedOperations() {

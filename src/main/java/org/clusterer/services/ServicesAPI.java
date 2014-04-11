@@ -94,7 +94,7 @@ public class ServicesAPI extends HttpServlet {
 		// String jsonData = createJsonData(data);
 
 		// /////////////////////////////////////////
-		String json = createJsonData(data);
+		String json = createJsonTreeData(data);
 		out.println(json);
 	}
 
@@ -166,12 +166,23 @@ public class ServicesAPI extends HttpServlet {
 		DataReader data = new HEBServiceAdapter(list, BOTTHRESHOLD / 100.0,
 				TOPTHRESHOLD / 100.0);
 
-		String json = createJsonData(data);
+		String jsonTreeMap = createJsonTreeData(data);
+		String jsonFileMap = createJsonMapData(data);
 		PrintWriter out = response.getWriter();
-		out.println(json);
+		out.println(jsonTreeMap);
+		out.println(jsonFileMap);
 	}
+	private String createJsonMapData(DataReader jsonData){
+		Object dataObject = new Object();
+		AbstractMap<String, String> mapFiles = jsonData.getMapParentFile();
+		
+		Gson g = new Gson();
+		String jsonResult = g.toJson(mapFiles);
 
-	private String createJsonData(DataReader jsonData) {
+		return jsonResult;
+		}
+	
+	private String createJsonTreeData(DataReader jsonData) {
 		Object dataObject = new Object();
 		int parents[] = jsonData.getParents();
 		int adjacencyList[][] = jsonData.getAdjacencyList();
@@ -223,72 +234,6 @@ public class ServicesAPI extends HttpServlet {
 			}
 			return r;
 		}
-	}
-
-	private void generateListFiles() throws MalformedURLException {
-		System.setProperty("user.dir", "/home/panther" + DIRFILES);
-		String userdir = System.getProperty("user.dir");
-
-		File folder = new File(userdir);
-		File[] listOfFiles = folder.listFiles();
-		for (int i = 0; i < listOfFiles.length; i++) {
-			if (listOfFiles[i].isFile())
-				list.add(new URL("file:" + userdir + "/"
-						+ listOfFiles[i].getName()));
-		}
-		//
-		// list.add(new URL("file:" + userdir + "/botomUp1/busquedarub.wsdl"));
-		// list.add(new URL("file:" + userdir
-		// + "/botomUp1/DatosdePersonaporCuip.wsdl"));
-		// list.add(new URL("file:" + userdir
-		// + "/botomUp1/InformacionDePersona.wsdl"));
-		// list.add(new URL("file:" + userdir +
-		// "/botomUp1/DatosdePersona.wsdl"));
-		// list.add(new URL("file:" + userdir
-		// + "/botomUp1/DatosdeEstadoCivil.wsdl"));
-		// list.add(new URL("file:" + userdir +
-		// "/botomUp1/DatosdeDictamenes.wsdl"));
-		// list.add(new URL("file:" + userdir +
-		// "/botomUp1/AltadeRelaciones.wsdl"));
-		// list.add(new URL(
-		// "file:"
-		// + userdir
-		// +
-		// "/botomUp1/CambiodeEst_GC_SinModif_DatosFiliatorios_AccionesdeActualizacion.wsdl"));
-		// list.add(new URL("file:" + userdir +
-		// "/botomUp1/ConsultaDeHijos.wsdl"));
-		// list.add(new URL("file:" + userdir +
-		// "/botomUp1/DatosdeApostilles.wsdl"));
-		// list.add(new URL("file:" + userdir +
-		// "/botomUp1/DatosdePartida.wsdl"));
-		// list.add(new URL("file:" + userdir +
-		// "/botomUp1/DatosdeSentencia.wsdl"));
-		// list.add(new URL("file:" + userdir
-		// + "/botomUp1/DatosInfoSumarialyDDJJ.wsdl"));
-		// list.add(new URL("file:" + userdir +
-		// "/botomUp1/Est_GC_Reversion.wsdl"));
-		// list.add(new URL("file:" + userdir +
-		// "/botomUp1/ListadoPersxDoc.wsdl"));
-		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWA.wsdl"));
-		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWB.wsdl"));
-		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWC.wsdl"));
-		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWD.wsdl"));
-		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWE.wsdl"));
-		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWF.wsdl"));
-		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWH.wsdl"));
-		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWR.wsdl"));
-		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWT.wsdl"));
-		// list.add(new URL("file:" + userdir + "/botomUp1/ServicioHLWV.wsdl"));
-		// list.add(new URL("file:" + userdir
-		// + "/botomUp1/ValidaciondePartida.wsdl"));
-		// list.add(new URL("file:" + userdir
-		// + "/botomUp1/ValidaciondeRelaciones.wsdl"));
-		// list.add(new URL("file:" + userdir + "/botomUp1/WsPw01.wsdl"));
-		// list.add(new URL("file:" + userdir + "/botomUp1/WsPw02.wsdl"));
-		// list.add(new URL("file:" + userdir + "/botomUp1/WsPw03.wsdl"));
-		// list.add(new URL("file:" + userdir + "/botomUp1/WsPw04.wsdl"));
-		// list.add(new URL("file:" + userdir + "/botomUp1/WsPw10.wsdl"));
-
 	}
 
 	private String getParam(Part part) throws IOException {

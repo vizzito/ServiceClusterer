@@ -4,7 +4,9 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -66,10 +68,10 @@ public class ClusteringHandler {
 	 * @param threshold
 	 * @return cluster of WS operations
 	 */
-	public List<List<Operation>> clusterWSDLDocuments(List<URL> WSDLLocations, double threshold) {
+	public HashMap<String, Object> clusterWSDLDocuments(List<URL> WSDLLocations, double threshold) {
 		List<List<Operation>> clusters = new LinkedList<List<Operation>>();
-		List<Operation> operations = new LinkedList<Operation>();
-		
+		HashMap<String, String> mapFiles = new HashMap<String, String>(); 
+	    List<Operation> operations = new LinkedList<Operation>();
 		operationsURLs= new HashMap<Operation,URL>() ;
 		System.out.println("URLS:"+operationsURLs);
 		for (URL documentURL : WSDLLocations) {
@@ -81,7 +83,9 @@ public class ClusteringHandler {
 				for (Operation operation : portType.getOperations()) {
 					operations.add(operation);
 					operationsURLs.put(operation,documentURL );
-									
+					String[] fileName = documentURL.getPath().split("/");
+					mapFiles.put(operation.getQName().getLocalPart(), fileName[fileName.length-1]);
+	//				mapa que meta 	nombre servicio(operation.name)[clave] y nombre archivo desde documentURL[valor]			
 				}
 			//}
 		}
@@ -93,7 +97,12 @@ public class ClusteringHandler {
 		for (DataTypeNode node : nodes) {
 			clusters.add(node.getRelatedOperations());
 		}
-		return clusters;
+		HashMap<String, Object> clusterInfo = new HashMap<String, Object>();
+		//		clusterInfo["mapFiles"]
+		clusterInfo.put("clusterOperations", clusters);
+		clusterInfo.put("mapFiles", mapFiles);
+		//clusterInfo["clusterOperations"] = clusters;
+		return clusterInfo;
 	}
 	
 		

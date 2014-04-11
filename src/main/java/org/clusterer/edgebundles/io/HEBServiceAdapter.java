@@ -15,7 +15,6 @@ import java.util.Set;
 
 import org.ow2.easywsdl.wsdl.api.Operation;
 import org.ow2.easywsdl.wsdl.impl.wsdl11.OperationImpl;
-
 import org.clusterer.util.Pair;
 import org.clusterer.ws.handler.ClusteringHandler;
 import org.clusterer.ws.handler.OperarionSimilarityHandler;
@@ -26,14 +25,17 @@ public class HEBServiceAdapter implements DataReader {
 
     int[] parentNodes;
     int[][] adjacencyList;
-    AbstractMap <Integer,String> mapOpsIS= new HashMap<Integer,String>();
-    AbstractMap <String,Integer> mapOpsSI= new HashMap<String,Integer>();
-    public HEBServiceAdapter(List<URL> WSDLLocations, double botThreshold,double topThreshold) throws IOException {
+    AbstractMap <Integer,String> mapOpsIS = new HashMap<Integer,String>();
+    AbstractMap <String,Integer> mapOpsSI = new HashMap<String,Integer>();
+    AbstractMap <String, String> mapParentFile = new HashMap<String, String>();
+
+	public HEBServiceAdapter(List<URL> WSDLLocations, double botThreshold,double topThreshold) throws IOException {
     	
     	ServicesMediator serMed=new ServicesMediator(WSDLLocations, botThreshold,   topThreshold);
     	serMed.doAllInferences();
-    	List<List<Operation>> res=serMed.getClusteredOperations();
-    	
+    	HashMap<String, Object> clusteredInfo= serMed.getClusteredOperations();
+    	mapParentFile = (AbstractMap<String, String>) clusteredInfo.get("mapFiles");
+    	List<List<Operation>> res =  (List<List<Operation>>) clusteredInfo.get("clusterOperations");
     	
     	int cantOp=0;
     	for (Iterator<List<Operation>> i=res.iterator() ;i.hasNext();) 
@@ -117,6 +119,10 @@ public class HEBServiceAdapter implements DataReader {
 	
 	public int[][] getAdjacencyList(){
 		return adjacencyList;
+	}
+	
+	public AbstractMap<String, String> getMapParentFile() {
+			return mapParentFile;
 	}
 
 	public AbstractMap<Integer, String> getNamesMap() {
