@@ -39,6 +39,7 @@ public interface DataReader {
     int[][] getAdjacencyList();
     int[] getParents();
     AbstractMap<Integer,String> getNamesMap();
+    AbstractMap<String,String> getMapParentFile();
     
 
 }
