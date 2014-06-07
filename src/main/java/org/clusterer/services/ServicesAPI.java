@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -32,6 +33,7 @@ import org.clusterer.services.response.VisualTreeResponse;
 
 import com.google.gson.Gson;
 
+
 @MultipartConfig
 public class ServicesAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -47,7 +49,8 @@ public class ServicesAPI extends HttpServlet {
 
 	private void loadPropertyFile() {
 		Properties prop = new Properties();
-		URL url = ClassLoader.getSystemResource("config.properties");
+		//URL url = ClassLoader.getSystemResource("config.properties");
+		URL url = getClass().getClassLoader().getResource("config.properties");
 		try{
 		prop.load(url.openStream());
 		}catch(Exception e)
@@ -55,7 +58,7 @@ public class ServicesAPI extends HttpServlet {
 			e.printStackTrace();
 		}
 	    System.out.println(prop);
-	    DIRFILES = prop.getProperty("tomcat.dir");
+	    DIRFILES = "/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer";//prop.getProperty("tomcat.dir");
 	}
 
 	/**
@@ -84,7 +87,10 @@ public class ServicesAPI extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		//aca ta la papaaaaaaaaaaaa
+		//s.analyze();
 		
+		//Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader().getParent());
 		list = new ArrayList<URL>();
 		FileItemFactory factory = new DiskFileItemFactory();
 		ServletFileUpload upload = new ServletFileUpload(factory);
@@ -94,7 +100,8 @@ public class ServicesAPI extends HttpServlet {
 					FileItem fileItem = it.next();
 					if (!fileItem.isFormField()) {
 						File fichero = new File(fileItem.getName());
-						fichero = new File(DIRFILES + "/" + fichero.getName());
+						String fileRoute = DIRFILES + "/" + fichero.getName();
+						fichero = new File(fileRoute);
 						list.add(new URL("file:" + DIRFILES + "/"
 								+ fichero.getName()));
 						try {
