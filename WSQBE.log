@@ -1,0 +1,8 @@
+06:54:34,600 INFO  edu.isistan.wsqbe.IRegistry - WSQBE Registry - Cargando configuración desde edu/isistan/wsqbe/registry.properties
+06:54:34,614 INFO  edu.isistan.wsqbe.IRegistry - Se utiliza la lista de stopwords desde el classpath edu/isistan/textmining/stoplist.txt
+06:54:34,667 WARN  detector.analyzer.AmbiguousNameAnalyzer - Set wordnet directory in java property: wordnet.database.dir
+06:54:34,667 WARN  detector.analyzer.AmbiguousNameAnalyzer - Set not recommended word patterns file: notRecommendedPatterns
+06:54:50,215 INFO  edu.isistan.wsqbe.IRegistry - WSQBE Registry - Cargando configuración desde edu/isistan/wsqbe/registry.properties
+06:54:50,225 INFO  edu.isistan.wsqbe.IRegistry - Se utiliza la lista de stopwords desde el classpath edu/isistan/textmining/stoplist.txt
+06:54:50,267 WARN  detector.analyzer.AmbiguousNameAnalyzer - Set wordnet directory in java property: wordnet.database.dir
+06:54:50,267 WARN  detector.analyzer.AmbiguousNameAnalyzer - Set not recommended word patterns file: notRecommendedPatterns
