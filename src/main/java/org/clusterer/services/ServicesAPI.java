@@ -2,6 +2,7 @@ package org.clusterer.services;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -49,16 +50,29 @@ public class ServicesAPI extends HttpServlet {
 
 	private void loadPropertyFile() {
 		Properties prop = new Properties();
-		//URL url = ClassLoader.getSystemResource("config.properties");
-		URL url = getClass().getClassLoader().getResource("config.properties");
-		try{
-		prop.load(url.openStream());
-		}catch(Exception e)
-		{
-			e.printStackTrace();
+		InputStream input = null;
+		try {
+			String filename = "config.properties";
+    		input = ServicesAPI.class.getClassLoader().getResourceAsStream(filename);
+    		if(input==null){
+    	            System.out.println("Sorry, unable to find " + filename);
+    		    return;
+    		}
+    		prop.load(input);
+	//		input = new FileInputStream("config.properties");
+//			prop.load(input);
+			DIRFILES = prop.getProperty("tomcat.dir");	 
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-	    System.out.println(prop);
-	    DIRFILES = "/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer";//prop.getProperty("tomcat.dir");
 	}
 
 	/**
@@ -87,10 +101,6 @@ public class ServicesAPI extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		//aca ta la papaaaaaaaaaaaa
-		//s.analyze();
-		
-		//Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader().getParent());
 		list = new ArrayList<URL>();
 		FileItemFactory factory = new DiskFileItemFactory();
 		ServletFileUpload upload = new ServletFileUpload(factory);
@@ -132,12 +142,9 @@ public class ServicesAPI extends HttpServlet {
 		out.println(jsonFileMap);
 	}
 	private String createJsonMapData(DataReader jsonData){
-		Object dataObject = new Object();
 		AbstractMap<String, String> mapFiles = jsonData.getMapParentFile();
-		
 		Gson g = new Gson();
 		String jsonResult = g.toJson(mapFiles);
-
 		return jsonResult;
 		}
 	
@@ -151,7 +158,6 @@ public class ServicesAPI extends HttpServlet {
 		for (int i = 2; i < countNodes; i++) {
 			parentsMap.put(i + 1, parents[i] + 1);
 		}
-
 		for (int i = 2; i < countNodes; i++) {
 			if (parents[i] > 0) {
 
