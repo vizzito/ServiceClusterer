@@ -32,6 +32,8 @@ import org.clusterer.edgebundles.io.DataReader;
 import org.clusterer.edgebundles.io.HEBServiceAdapter;
 import org.clusterer.services.response.VisualTreeResponse;
 
+import weka.clusterers.SimpleKMeans;
+
 import com.google.gson.Gson;
 
 
@@ -46,6 +48,7 @@ public class ServicesAPI extends HttpServlet {
 	public ServicesAPI() {
 		// TODO ver el tema de la carga del propertie file
 		loadPropertyFile();
+		
 	}
 
 	private void loadPropertyFile() {

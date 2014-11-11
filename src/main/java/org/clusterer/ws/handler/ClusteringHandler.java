@@ -35,7 +35,7 @@ public class ClusteringHandler {
 	 * 
 	 */
 	private AbstractMap <Operation,URL> operationsURLs;
-	
+	private boolean kmeans = true;
 	public AbstractMap<Operation, URL> getOperationsURLs() {
 		return operationsURLs;
 	}
@@ -92,7 +92,7 @@ public class ClusteringHandler {
 		
 		NodeBasedClusterer clusterer = new NodeBasedClusterer(operations);
 		clusterer.generateGraph(threshold);
-//		clusterer.generateGraph(0.75);
+		
 		List<DataTypeNode> nodes = clusterer.getMergedClusters();
 		for (DataTypeNode node : nodes) {
 			clusters.add(node.getRelatedOperations());
@@ -105,5 +105,51 @@ public class ClusteringHandler {
 		return clusterInfo;
 	}
 	
+	
+	
+	public HashMap<String, Object> clusterWSDLDocumentsTest(List<URL> WSDLLocations, double threshold) {
+		List<List<Operation>> clusters = new LinkedList<List<Operation>>();
+		HashMap<String, String> mapFiles = new HashMap<String, String>(); 
+	    List<Operation> operations = new LinkedList<Operation>();
+		operationsURLs= new HashMap<Operation,URL>() ;
+		System.out.println("URLS:"+operationsURLs);
+		for (URL documentURL : WSDLLocations) {
+			Description description = readLocation(documentURL);
+			//For testing purposes: For now, we can focus on SOAP operations (in general, the first portType given by parsers)
+			//So far, clustering HTTP operations with SOAP operations does not make sense.
+			//for (InterfaceType portType : description.getInterfaces()) {
+				InterfaceType portType = description.getInterfaces().get(0);
+				for (Operation operation : portType.getOperations()) {
+					operations.add(operation);
+					operationsURLs.put(operation,documentURL );
+					String[] fileName = documentURL.getPath().split("/");
+					mapFiles.put(operation.getQName().getLocalPart(), fileName[fileName.length-1]);
+	//				mapa que meta 	nombre servicio(operation.name)[clave] y nombre archivo desde documentURL[valor]			
+				}
+			//}
+		}
+		
+		NodeBasedClusterer clusterer = new NodeBasedClusterer(operations);
+		
+		
+		
+				try {
+					clusterer.kmeansTest();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		
+		List<DataTypeNode> nodes = clusterer.getMergedClusters();
+		for (DataTypeNode node : nodes) {
+			clusters.add(node.getRelatedOperations());
+		}
+		HashMap<String, Object> clusterInfo = new HashMap<String, Object>();
+		//		clusterInfo["mapFiles"]
+		clusterInfo.put("clusterOperations", clusters);
+		clusterInfo.put("mapFiles", mapFiles);
+		//clusterInfo["clusterOperations"] = clusters;
+		return clusterInfo;
+	}
 		
 }

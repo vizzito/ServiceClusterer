@@ -6,6 +6,7 @@ public class OperationNode {
 	private Operation op;
 	private DataTypeNode input;
 	private DataTypeNode output;
+	private int numCluster;
 	
 	public OperationNode(Operation op) {
 		this.op = op;
@@ -29,5 +30,13 @@ public class OperationNode {
 	
 	public DataTypeNode getOutput() {
 		return output;
+	}
+
+	public int getNumCluster() {
+		return numCluster;
+	}
+
+	public void setNumCluster(int numCluster) {
+		this.numCluster = numCluster;
 	}
 }

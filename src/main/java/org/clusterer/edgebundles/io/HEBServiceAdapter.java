@@ -29,6 +29,7 @@ public class HEBServiceAdapter implements DataReader {
     AbstractMap <String,Integer> mapOpsSI = new HashMap<String,Integer>();
     AbstractMap <String, String> mapParentFile = new HashMap<String, String>();
 
+	@SuppressWarnings("unchecked")
 	public HEBServiceAdapter(List<URL> WSDLLocations, double botThreshold,double topThreshold) throws IOException {
     	
     	ServicesMediator serMed=new ServicesMediator(WSDLLocations, botThreshold,   topThreshold);
