@@ -43,6 +43,7 @@ public class ServicesAPI extends HttpServlet {
 	private List<URL> list;
 	private static int BOTTHRESHOLD = 30;
 	private static int TOPTHRESHOLD = 80;
+	private static String CLUSTERING_STRATEGY = "";
 	private static String DIRFILES;
 
 	public ServicesAPI() {
@@ -130,13 +131,16 @@ public class ServicesAPI extends HttpServlet {
 						if (name.equals("files[topsimil]"))
 							TOPTHRESHOLD = Integer.parseInt(fileItem
 									.getString());
+						if (name.equals("files[clusteringstrategy]"))
+							CLUSTERING_STRATEGY = fileItem.getString();
 					}
 				}
 		} catch (FileUploadException e) {
 			e.printStackTrace();
 		}
+		
 		DataReader data = new HEBServiceAdapter(list, BOTTHRESHOLD / 100.0,
-				TOPTHRESHOLD / 100.0);
+				TOPTHRESHOLD / 100.0,CLUSTERING_STRATEGY);
 
 		String jsonTreeMap = createJsonTreeData(data);
 		String jsonFileMap = createJsonMapData(data);

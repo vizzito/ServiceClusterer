@@ -10,7 +10,9 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.clusterer.base.NodeBasedClusterer;
+//import org.clusterer.base.NodeBasedClusterer;
+import org.clusterer.strategy.ClusteringHierarchyStrategy;
+import org.clusterer.strategy.ClusteringStrategy;
 import org.clusterer.util.DataTypeNode;
 import org.ow2.easywsdl.wsdl.WSDLFactory;
 import org.ow2.easywsdl.wsdl.api.Description;
@@ -35,7 +37,7 @@ public class ClusteringHandler {
 	 * 
 	 */
 	private AbstractMap <Operation,URL> operationsURLs;
-	private boolean kmeans = true;
+	private ClusteringStrategy clustererStrategy;
 	public AbstractMap<Operation, URL> getOperationsURLs() {
 		return operationsURLs;
 	}
@@ -68,6 +70,61 @@ public class ClusteringHandler {
 	 * @param threshold
 	 * @return cluster of WS operations
 	 */
+	public HashMap<String, Object> clusterWSDLDocumentsForCluster(List<URL> WSDLLocations, double threshold) {
+		List<List<Operation>> clusters = new LinkedList<List<Operation>>();
+		HashMap<String, String> mapFiles = new HashMap<String, String>(); 
+	    List<Operation> operations = new LinkedList<Operation>();
+		operationsURLs= new HashMap<Operation,URL>() ;
+		System.out.println("URLS:"+operationsURLs);
+		for (URL documentURL : WSDLLocations) {
+			Description description = readLocation(documentURL);
+			//For testing purposes: For now, we can focus on SOAP operations (in general, the first portType given by parsers)
+			//So far, clustering HTTP operations with SOAP operations does not make sense.
+			//for (InterfaceType portType : description.getInterfaces()) {
+				InterfaceType portType = description.getInterfaces().get(0);
+				for (Operation operation : portType.getOperations()) {
+					operations.add(operation);
+					operationsURLs.put(operation,documentURL );
+					String[] fileName = documentURL.getPath().split("/");
+					mapFiles.put(operation.getQName().getLocalPart(), fileName[fileName.length-1]);
+	//				mapa que meta 	nombre servicio(operation.name)[clave] y nombre archivo desde documentURL[valor]			
+				}
+			//}
+		}
+		
+//		NodeBasedClusterer clusterer = new NodeBasedClusterer(operations);
+//		clusterer.generateGraph(threshold);
+		
+		ClusteringStrategy clusterer = getClustererStrategy();
+		clusterer.setOperations(operations);
+		clusterer.generateCluster();
+		
+		List<DataTypeNode> nodes = clusterer.getMergedClusters();
+		for (DataTypeNode node : nodes) {
+			clusters.add(node.getRelatedOperations());
+		}
+		HashMap<String, Object> clusterInfo = new HashMap<String, Object>();
+		//		clusterInfo["mapFiles"]
+		clusterInfo.put("clusterOperations", clusters);
+		clusterInfo.put("mapFiles", mapFiles);
+		//clusterInfo["clusterOperations"] = clusters;
+		return clusterInfo;
+	}
+
+
+
+	public ClusteringStrategy getClustererStrategy() {
+		return clustererStrategy;
+	}
+
+
+
+	public void setClustererStrategy(ClusteringStrategy clustererStrategy) {
+		this.clustererStrategy = clustererStrategy;
+	}
+	
+	
+	
 	public HashMap<String, Object> clusterWSDLDocuments(List<URL> WSDLLocations, double threshold) {
 		List<List<Operation>> clusters = new LinkedList<List<Operation>>();
 		HashMap<String, String> mapFiles = new HashMap<String, String>(); 
@@ -85,56 +142,13 @@ public class ClusteringHandler {
 					operationsURLs.put(operation,documentURL );
 					String[] fileName = documentURL.getPath().split("/");
 					mapFiles.put(operation.getQName().getLocalPart(), fileName[fileName.length-1]);
-	//				mapa que meta 	nombre servicio(operation.name)[clave] y nombre archivo desde documentURL[valor]			
 				}
-			//}
 		}
 		
-		NodeBasedClusterer clusterer = new NodeBasedClusterer(operations);
-		clusterer.generateGraph(threshold);
-		
-		List<DataTypeNode> nodes = clusterer.getMergedClusters();
-		for (DataTypeNode node : nodes) {
-			clusters.add(node.getRelatedOperations());
-		}
-		HashMap<String, Object> clusterInfo = new HashMap<String, Object>();
-		//		clusterInfo["mapFiles"]
-		clusterInfo.put("clusterOperations", clusters);
-		clusterInfo.put("mapFiles", mapFiles);
-		//clusterInfo["clusterOperations"] = clusters;
-		return clusterInfo;
-	}
-	
-	
-	
-	public HashMap<String, Object> clusterWSDLDocumentsTest(List<URL> WSDLLocations, double threshold) {
-		List<List<Operation>> clusters = new LinkedList<List<Operation>>();
-		HashMap<String, String> mapFiles = new HashMap<String, String>(); 
-	    List<Operation> operations = new LinkedList<Operation>();
-		operationsURLs= new HashMap<Operation,URL>() ;
-		System.out.println("URLS:"+operationsURLs);
-		for (URL documentURL : WSDLLocations) {
-			Description description = readLocation(documentURL);
-			//For testing purposes: For now, we can focus on SOAP operations (in general, the first portType given by parsers)
-			//So far, clustering HTTP operations with SOAP operations does not make sense.
-			//for (InterfaceType portType : description.getInterfaces()) {
-				InterfaceType portType = description.getInterfaces().get(0);
-				for (Operation operation : portType.getOperations()) {
-					operations.add(operation);
-					operationsURLs.put(operation,documentURL );
-					String[] fileName = documentURL.getPath().split("/");
-					mapFiles.put(operation.getQName().getLocalPart(), fileName[fileName.length-1]);
-	//				mapa que meta 	nombre servicio(operation.name)[clave] y nombre archivo desde documentURL[valor]			
-				}
-			//}
-		}
-		
-		NodeBasedClusterer clusterer = new NodeBasedClusterer(operations);
-		
-		
-		
+		ClusteringHierarchyStrategy clusterer = new ClusteringHierarchyStrategy(operations);
 				try {
-					clusterer.kmeansTest();
+					clusterer.setThreshold(threshold);
+					clusterer.generateCluster();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

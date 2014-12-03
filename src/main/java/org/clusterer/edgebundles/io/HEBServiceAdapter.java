@@ -30,9 +30,10 @@ public class HEBServiceAdapter implements DataReader {
     AbstractMap <String, String> mapParentFile = new HashMap<String, String>();
 
 	@SuppressWarnings("unchecked")
-	public HEBServiceAdapter(List<URL> WSDLLocations, double botThreshold,double topThreshold) throws IOException {
+	public HEBServiceAdapter(List<URL> WSDLLocations, double botThreshold,double topThreshold,String clusteringStrategy) throws IOException {
     	
-    	ServicesMediator serMed=new ServicesMediator(WSDLLocations, botThreshold,   topThreshold);
+    	ServicesMediator serMed=new ServicesMediator(WSDLLocations, botThreshold, topThreshold);
+    	serMed.setClusteringStrategy(clusteringStrategy);
     	serMed.doAllInferences();
     	HashMap<String, Object> clusteredInfo= serMed.getClusteredOperations();
     	mapParentFile = (AbstractMap<String, String>) clusteredInfo.get("mapFiles");

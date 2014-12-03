@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.clusterer.similarity.ISimilarityFunction;
+import org.clusterer.similarity.OverlappingSimilarityFunction;
+import org.clusterer.strategy.ClusteringHierarchyStrategy;
+import org.clusterer.strategy.ClusteringStrategy;
+import org.clusterer.strategy.StrategyConstructor;
 import org.clusterer.util.Pair;
 import org.ow2.easywsdl.wsdl.api.Operation;
 
@@ -22,18 +27,36 @@ public class ServicesMediator {
 		AbstractMap <Pair,Double> relatedOperations;
 		private double topThreshold;
 		private double bottomThreshold;
+		private String clusteringStrategy;
+    	public String getClusteringStrategy() {
+			return clusteringStrategy;
+		}
 
-    	public ServicesMediator(List<URL> WSDLLocations, double botThreshold,double topThreshold){
+		public void setClusteringStrategy(String clusteringStrategy) {
+			this.clusteringStrategy = clusteringStrategy;
+		}
+
+		public ServicesMediator(List<URL> WSDLLocations, double botThreshold,double topThreshold){
     		this.WSDLLocations=WSDLLocations;
     		this.topThreshold=topThreshold;
     		this.bottomThreshold=botThreshold;
     		ch=new ClusteringHandler();
     		osh=new OperarionSimilarityHandler();
+    		
+    		
     	}
     	
     	private void doClustering() {
+//    		if (true){
+//    		ClusteringHierarchyStrategy strategy	= new ClusteringHierarchyStrategy();
+//    		ISimilarityFunction function = new OverlappingSimilarityFunction(topThreshold);
+//    		strategy.setSimilarityFunction(function);
+    		ClusteringStrategy strategy = StrategyConstructor.getStrategy(clusteringStrategy);
+    		strategy.setThreshold(topThreshold);
+			ch.setClustererStrategy(strategy);
+//    		}
     		// operaciones agrupadas por similitud
-    		clusteredInfo=ch.clusterWSDLDocumentsTest(WSDLLocations, topThreshold);
+    		clusteredInfo=ch.clusterWSDLDocumentsForCluster(WSDLLocations, topThreshold);
     		//ojo aca cambie... las posta es clusterWSDLDocuments
     		@SuppressWarnings("unchecked")
 			List<List<Operation>>clusteredOperations = (List<List<Operation>>) clusteredInfo.get("clusterOperations");
@@ -52,6 +75,9 @@ public class ServicesMediator {
     	}
     	
     	private void doSimilRelations() {
+//    		ClusteringStrategy strategy = StrategyConstructor.getStrategy(clusteringStrategy);
+//    		strategy.setThreshold(topThreshold);
+//			ch.setClustererStrategy(strategy);
     		relatedOperations=osh.generateOperationSimilarity(WSDLLocations,10,bottomThreshold,topThreshold);
     		
     		System.out.println("Relaciones entre operaciones");
@@ -100,4 +126,5 @@ public class ServicesMediator {
     	public Set<String> getRelatedOperations(String op) {
     		return osh.getOpSimilSet().get(op);
     	}
+
 }
