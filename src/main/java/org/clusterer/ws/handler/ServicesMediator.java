@@ -46,7 +46,7 @@ public class ServicesMediator {
     		
     	}
     	
-    	private void doClustering() {
+    	private void doClustering() throws Exception {
 //    		if (true){
 //    		ClusteringHierarchyStrategy strategy	= new ClusteringHierarchyStrategy();
 //    		ISimilarityFunction function = new OverlappingSimilarityFunction(topThreshold);
@@ -99,7 +99,12 @@ public class ServicesMediator {
     	
     	    	
     	public void doAllInferences() {
-    		doClustering();
+    		try {
+				doClustering();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     		doSimilRelations();
     	}
     	

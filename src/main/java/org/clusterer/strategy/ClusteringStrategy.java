@@ -10,6 +10,8 @@ import org.clusterer.util.DataTypeNode;
 import org.clusterer.util.OperationNode;
 import org.ow2.easywsdl.wsdl.api.Operation;
 
+import weka.clusterers.AbstractClusterer;
+
 public abstract class ClusteringStrategy {
 	protected List<Operation> operations;
 	protected List<DataTypeNode> dataTypeNodes;
@@ -17,6 +19,7 @@ public abstract class ClusteringStrategy {
 	protected List<DataTypeNode> mergedNodes;
 	protected List<OperationNode> operationNodes;
 	private double threshold = 0.75;
+	private AbstractClusterer clusterer;
 	public ClusteringStrategy() {
 		dataTypeNodes = new LinkedList<DataTypeNode>();
 		operationNodes = new LinkedList<OperationNode>();
@@ -105,4 +108,10 @@ public abstract class ClusteringStrategy {
 	}
 
 	public abstract void generateCluster();
+	public AbstractClusterer getClusterer() {
+		return clusterer;
+	}
+	public void setClusterer(AbstractClusterer clusterer) {
+		this.clusterer = clusterer;
+	}
 }
