@@ -6,3 +6,65 @@
 06:54:50,225 INFO  edu.isistan.wsqbe.IRegistry - Se utiliza la lista de stopwords desde el classpath edu/isistan/textmining/stoplist.txt
 06:54:50,267 WARN  detector.analyzer.AmbiguousNameAnalyzer - Set wordnet directory in java property: wordnet.database.dir
 06:54:50,267 WARN  detector.analyzer.AmbiguousNameAnalyzer - Set not recommended word patterns file: notRecommendedPatterns
+02:43:09,969 INFO  edu.isistan.wsqbe.IRegistry - WSQBE Registry - Cargando configuración desde edu/isistan/wsqbe/registry.properties
+02:43:09,998 INFO  edu.isistan.wsqbe.IRegistry - Se utiliza la lista de stopwords desde el classpath edu/isistan/textmining/stoplist.txt
+02:43:10,044 WARN  detector.analyzer.AmbiguousNameAnalyzer - Set wordnet directory in java property: wordnet.database.dir
+02:43:10,045 WARN  detector.analyzer.AmbiguousNameAnalyzer - Set not recommended word patterns file: notRecommendedPatterns
+02:43:12,572 DEBUG detector.analyzer.AmbiguousNameAnalyzer - Loading LengthNameAnalyzer
+02:43:12,574 DEBUG detector.analyzer.AmbiguousNameAnalyzer - Loading UnrecommendedKeyWordsAnalyzer
+02:43:12,578 DEBUG detector.analyzer.AmbiguousNameAnalyzer - Loading SyntacticMessagePartAnalyzer
+02:43:12,579 DEBUG detector.analyzer.AmbiguousNameAnalyzer - Loading SyntacticOperatorAnalyzer
+02:43:14,175 DEBUG org.apache.wsif.* - ENTRY  WSIFWSDLLocatorImpl.<init><27cfa589>(<null>, <null>, <null>)
+02:43:14,176 DEBUG org.apache.wsif.* - EXIT   WSIFWSDLLocatorImpl.<init>()
+02:43:14,187 DEBUG edu.isistan.textmining.WSDLDocPreprocessor - Se omite portType: DatosdePartidaHttpGet
+02:43:14,187 DEBUG edu.isistan.textmining.WSDLDocPreprocessor - Se omite portType: DatosdePartidaSoap
+02:43:14,196 DEBUG detector.analyzer.structural.LengthNameAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosdePartida.wsdl
+02:43:14,196 DEBUG detector.analyzer.words.UnrecommendedKeyWordsAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosdePartida.wsdl
+02:43:14,199 DEBUG detector.analyzer.syntactic.SyntacticMessagePartAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosdePartida.wsdl
+02:43:14,472 DEBUG detector.analyzer.syntactic.SyntacticOperatorAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosdePartida.wsdl
+02:43:14,981 DEBUG org.apache.wsif.* - ENTRY  WSIFWSDLLocatorImpl.<init><3928312c>(<null>, <null>, <null>)
+02:43:14,981 DEBUG org.apache.wsif.* - EXIT   WSIFWSDLLocatorImpl.<init>()
+02:43:14,996 DEBUG edu.isistan.textmining.WSDLDocPreprocessor - Se omite portType: DatosdePersonaSoap
+02:43:14,996 DEBUG edu.isistan.textmining.WSDLDocPreprocessor - Se omite portType: DatosdePersonaHttpPost
+02:43:14,998 DEBUG detector.analyzer.structural.LengthNameAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosdePersona.wsdl
+02:43:14,998 DEBUG detector.analyzer.words.UnrecommendedKeyWordsAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosdePersona.wsdl
+02:43:15,001 DEBUG detector.analyzer.syntactic.SyntacticMessagePartAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosdePersona.wsdl
+02:43:15,023 DEBUG detector.analyzer.syntactic.SyntacticOperatorAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosdePersona.wsdl
+02:43:15,531 DEBUG org.apache.wsif.* - ENTRY  WSIFWSDLLocatorImpl.<init><185a0951>(<null>, <null>, <null>)
+02:43:15,532 DEBUG org.apache.wsif.* - EXIT   WSIFWSDLLocatorImpl.<init>()
+02:43:15,557 DEBUG edu.isistan.textmining.WSDLDocPreprocessor - Se omite portType: DatosdePersonaporCuipHttpPost
+02:43:15,557 DEBUG edu.isistan.textmining.WSDLDocPreprocessor - Se omite portType: DatosdePersonaporCuipHttpGet
+02:43:15,560 DEBUG detector.analyzer.structural.LengthNameAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosdePersonaporCuip.wsdl
+02:43:15,560 DEBUG detector.analyzer.words.UnrecommendedKeyWordsAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosdePersonaporCuip.wsdl
+02:43:15,562 DEBUG detector.analyzer.syntactic.SyntacticMessagePartAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosdePersonaporCuip.wsdl
+02:43:15,577 DEBUG detector.analyzer.syntactic.SyntacticOperatorAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosdePersonaporCuip.wsdl
+02:43:15,974 DEBUG org.apache.wsif.* - ENTRY  WSIFWSDLLocatorImpl.<init><348bf208>(<null>, <null>, <null>)
+02:43:15,974 DEBUG org.apache.wsif.* - EXIT   WSIFWSDLLocatorImpl.<init>()
+02:43:15,981 DEBUG edu.isistan.textmining.WSDLDocPreprocessor - Se omite portType: DatosdeSentenciaHttpGet
+02:43:15,981 DEBUG edu.isistan.textmining.WSDLDocPreprocessor - Se omite portType: DatosdeSentenciaSoap
+02:43:15,983 DEBUG detector.analyzer.structural.LengthNameAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosdeSentencia.wsdl
+02:43:15,984 DEBUG detector.analyzer.words.UnrecommendedKeyWordsAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosdeSentencia.wsdl
+02:43:15,987 DEBUG detector.analyzer.syntactic.SyntacticMessagePartAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosdeSentencia.wsdl
+02:43:16,027 DEBUG detector.analyzer.syntactic.SyntacticOperatorAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosdeSentencia.wsdl
+02:43:16,377 DEBUG org.apache.wsif.* - ENTRY  WSIFWSDLLocatorImpl.<init><1a0ef132>(<null>, <null>, <null>)
+02:43:16,378 DEBUG org.apache.wsif.* - EXIT   WSIFWSDLLocatorImpl.<init>()
+02:43:16,383 DEBUG edu.isistan.textmining.WSDLDocPreprocessor - Se omite portType: DatosInfoSumarialyDDJJSoap
+02:43:16,383 DEBUG edu.isistan.textmining.WSDLDocPreprocessor - Se omite portType: DatosInfoSumarialyDDJJHttpGet
+02:43:16,386 DEBUG detector.analyzer.structural.LengthNameAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosInfoSumarialyDDJJ.wsdl
+02:43:16,386 DEBUG detector.analyzer.words.UnrecommendedKeyWordsAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosInfoSumarialyDDJJ.wsdl
+02:43:16,390 DEBUG detector.analyzer.syntactic.SyntacticMessagePartAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosInfoSumarialyDDJJ.wsdl
+02:43:16,432 DEBUG detector.analyzer.syntactic.SyntacticOperatorAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/DatosInfoSumarialyDDJJ.wsdl
+02:43:16,752 DEBUG org.apache.wsif.* - ENTRY  WSIFWSDLLocatorImpl.<init><35e47b48>(<null>, <null>, <null>)
+02:43:16,753 DEBUG org.apache.wsif.* - EXIT   WSIFWSDLLocatorImpl.<init>()
+02:43:16,759 DEBUG detector.analyzer.structural.LengthNameAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/Est_GC_Reversion.wsdl
+02:43:16,760 DEBUG detector.analyzer.words.UnrecommendedKeyWordsAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/Est_GC_Reversion.wsdl
+02:43:16,760 DEBUG detector.analyzer.syntactic.SyntacticMessagePartAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/Est_GC_Reversion.wsdl
+02:43:16,764 DEBUG detector.analyzer.syntactic.SyntacticOperatorAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/Est_GC_Reversion.wsdl
+02:43:17,051 DEBUG org.apache.wsif.* - ENTRY  WSIFWSDLLocatorImpl.<init><112696ed>(<null>, <null>, <null>)
+02:43:17,052 DEBUG org.apache.wsif.* - EXIT   WSIFWSDLLocatorImpl.<init>()
+02:43:17,060 DEBUG edu.isistan.textmining.WSDLDocPreprocessor - Se omite portType: InformacionDePersonaSoap
+02:43:17,060 DEBUG edu.isistan.textmining.WSDLDocPreprocessor - Se omite portType: InformacionDePersonaHttpGet
+02:43:17,062 DEBUG detector.analyzer.structural.LengthNameAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/InformacionDePersona.wsdl
+02:43:17,062 DEBUG detector.analyzer.words.UnrecommendedKeyWordsAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/InformacionDePersona.wsdl
+02:43:17,064 DEBUG detector.analyzer.syntactic.SyntacticMessagePartAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/InformacionDePersona.wsdl
+02:43:17,076 DEBUG detector.analyzer.syntactic.SyntacticOperatorAnalyzer - Analyzing file:/home/panther/tomcat/apache-tomcat-7.0.52/webapps/ServiceClusterer/InformacionDePersona.wsdl
