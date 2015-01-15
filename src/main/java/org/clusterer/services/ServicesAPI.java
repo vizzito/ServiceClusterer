@@ -47,9 +47,7 @@ public class ServicesAPI extends HttpServlet {
 	private static String DIRFILES;
 
 	public ServicesAPI() {
-		// TODO ver el tema de la carga del propertie file
 		loadPropertyFile();
-		
 	}
 
 	private void loadPropertyFile() {
@@ -63,8 +61,6 @@ public class ServicesAPI extends HttpServlet {
     		    return;
     		}
     		prop.load(input);
-	//		input = new FileInputStream("config.properties");
-//			prop.load(input);
 			DIRFILES = prop.getProperty("tomcat.dir");	 
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -85,18 +81,6 @@ public class ServicesAPI extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-	}
-
-	private String extractFileName(Part part) {
-
-		String contentDisp = part.getHeader("content-disposition");
-		String[] items = contentDisp.split(";");
-		for (String s : items) {
-			if (s.trim().startsWith("filename")) {
-				return s.substring(s.indexOf("=") + 2, s.length() - 1);
-			}
-		}
-		return null;
 	}
 
 	/**
