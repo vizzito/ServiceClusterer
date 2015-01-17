@@ -61,7 +61,8 @@ public class ServicesAPI extends HttpServlet {
     		    return;
     		}
     		prop.load(input);
-			DIRFILES = prop.getProperty("tomcat.dir");	 
+			DIRFILES = prop.getProperty("tomcat.dir");
+			System.out.println("DIRFILES:SERVICECLUSTERER::"+DIRFILES);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} finally {
