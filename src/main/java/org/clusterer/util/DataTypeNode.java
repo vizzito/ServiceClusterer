@@ -111,6 +111,16 @@ public class DataTypeNode {
 		return flattenElements;
 	}
 	
+	public Hashtable<String, String> internFlattenDataTypes(Element element) {
+		if(element!=null){
+			Hashtable<String, String> flattenElements = new Hashtable<String, String>();
+			internFlattenElement(element, flattenElements);
+		
+		return flattenElements;
+		}
+		else{return null;}
+	}
+	
 	/**
 	 * Flatten elements in a recursive way. Duplicated elements
 	 * are ignored. 
@@ -134,6 +144,28 @@ public class DataTypeNode {
 			//Has anonymous data type
 			else {
 				addElement(element);
+			}
+		}
+	}
+	
+	private void internFlattenElement(Element element, Hashtable<String, String> flattenElements) {
+		//Is simple type
+		if (element.getType() instanceof SimpleTypeImpl) {
+			flattenElements.put(element.getQName().getLocalPart().toString(), element.getType().getQName().getLocalPart().toString());
+		}
+		else {
+			//Is complex type
+			ComplexTypeImpl complexType = (ComplexTypeImpl) element.getType();
+			//If has sequence with elements
+			if (complexType.hasSequence()) {
+				//Flatten each element
+				for (Element e : complexType.getSequence().getElements()) {
+					internFlattenElement(e,flattenElements);
+				}
+			}
+			//Has anonymous data type
+			else {
+				flattenElements.put(element.getQName().getLocalPart().toString(), element.getType().getQName().getLocalPart().toString());
 			}
 		}
 	}

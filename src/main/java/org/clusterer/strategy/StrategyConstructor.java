@@ -13,7 +13,7 @@ public class StrategyConstructor {
 		case "hierarchy":return new ClusteringHierarchyStrategy();
 		case "kmeans":{
 			SimpleKMeans kmeans = new SimpleKMeans();
-			kmeans.setNumClusters(17);
+			kmeans.setNumClusters(3);
 			strategy = new ClusteringDistanceStrategy();
 			strategy.setClusterer(kmeans);
 			return strategy;

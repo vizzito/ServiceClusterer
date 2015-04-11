@@ -87,13 +87,8 @@ public class ClusteringHandler {
 					operationsURLs.put(operation,documentURL );
 					String[] fileName = documentURL.getPath().split("/");
 					mapFiles.put(operation.getQName().getLocalPart(), fileName[fileName.length-1]);
-	//				mapa que meta 	nombre servicio(operation.name)[clave] y nombre archivo desde documentURL[valor]			
 				}
-			//}
 		}
-		
-//		NodeBasedClusterer clusterer = new NodeBasedClusterer(operations);
-//		clusterer.generateGraph(threshold);
 		
 		ClusteringStrategy clusterer = getClustererStrategy();
 		clusterer.setOperations(operations);
@@ -104,10 +99,8 @@ public class ClusteringHandler {
 			clusters.add(node.getRelatedOperations());
 		}
 		HashMap<String, Object> clusterInfo = new HashMap<String, Object>();
-		//		clusterInfo["mapFiles"]
 		clusterInfo.put("clusterOperations", clusters);
 		clusterInfo.put("mapFiles", mapFiles);
-		//clusterInfo["clusterOperations"] = clusters;
 		return clusterInfo;
 	}
 
@@ -122,8 +115,6 @@ public class ClusteringHandler {
 	public void setClustererStrategy(ClusteringStrategy clustererStrategy) {
 		this.clustererStrategy = clustererStrategy;
 	}
-	
-	
 	
 	public HashMap<String, Object> clusterWSDLDocuments(List<URL> WSDLLocations, double threshold) {
 		List<List<Operation>> clusters = new LinkedList<List<Operation>>();
@@ -159,10 +150,8 @@ public class ClusteringHandler {
 			clusters.add(node.getRelatedOperations());
 		}
 		HashMap<String, Object> clusterInfo = new HashMap<String, Object>();
-		//		clusterInfo["mapFiles"]
 		clusterInfo.put("clusterOperations", clusters);
 		clusterInfo.put("mapFiles", mapFiles);
-		//clusterInfo["clusterOperations"] = clusters;
 		return clusterInfo;
 	}
 		

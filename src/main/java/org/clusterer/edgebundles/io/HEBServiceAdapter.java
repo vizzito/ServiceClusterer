@@ -59,8 +59,8 @@ public class HEBServiceAdapter implements DataReader {
     		int ops=group.size();
     		for (Iterator<Operation> j=group.iterator() ;j.hasNext();) {
     			OperationImpl op=(OperationImpl)j.next();
-    			mapOpsIS.put(index,op.getModel().getName());
-    			mapOpsSI.put(op.getModel().getName(),index);
+    			mapOpsIS.put(index,op.getQName().getLocalPart());
+    			mapOpsSI.put(op.getQName().getLocalPart(),index);
     			parentNodes[index++]=igroup;    			
     		}
     		igroup++;    		
@@ -80,6 +80,9 @@ public class HEBServiceAdapter implements DataReader {
             		adjacencyList[i] = new int[relops.size()];
             		int j=0;
             		for (String oper : relops ) {
+//            			if(mapOpsSI.get(oper)==null)
+//            				adjacencyList[i] = new int[0];
+//            				else
             			adjacencyList[i][j++]=mapOpsSI.get(oper);
             		}
             	}

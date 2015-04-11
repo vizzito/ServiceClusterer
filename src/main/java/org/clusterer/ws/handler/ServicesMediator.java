@@ -57,7 +57,7 @@ public class ServicesMediator {
 //    		}
     		// operaciones agrupadas por similitud
     		clusteredInfo=ch.clusterWSDLDocumentsForCluster(WSDLLocations, topThreshold);
-    		//ojo aca cambie... las posta es clusterWSDLDocuments
+    		
     		@SuppressWarnings("unchecked")
 			List<List<Operation>>clusteredOperations = (List<List<Operation>>) clusteredInfo.get("clusterOperations");
     		System.out.println("Cantidad de Grupos> " + clusteredOperations.size() + "threshold:" + topThreshold);
