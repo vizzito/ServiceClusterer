@@ -44,6 +44,7 @@ public class ServicesAPI extends HttpServlet {
 	private static int BOTTHRESHOLD = 30;
 	private static int TOPTHRESHOLD = 80;
 	private static String CLUSTERING_STRATEGY = "";
+	private static Integer CLUSTER_COUNT = 0;
 	private static String DIRFILES;
 
 	public ServicesAPI() {
@@ -117,6 +118,10 @@ public class ServicesAPI extends HttpServlet {
 									.getString());
 						if (name.equals("files[clusteringstrategy]"))
 							CLUSTERING_STRATEGY = fileItem.getString();
+						
+						if (name.equals("files[numberofclusters]"))
+							CLUSTER_COUNT = Integer.parseInt(fileItem
+									.getString());
 					}
 				}
 		} catch (FileUploadException e) {
@@ -124,13 +129,14 @@ public class ServicesAPI extends HttpServlet {
 		}
 		
 		DataReader data = new HEBServiceAdapter(list, BOTTHRESHOLD / 100.0,
-				TOPTHRESHOLD / 100.0,CLUSTERING_STRATEGY);
-
+				TOPTHRESHOLD / 100.0,CLUSTERING_STRATEGY, CLUSTER_COUNT);
+		
 		String jsonTreeMap = createJsonTreeData(data);
 		String jsonFileMap = createJsonMapData(data);
 		PrintWriter out = response.getWriter();
 		out.println(jsonTreeMap);
 		out.println(jsonFileMap);
+		out.println(data.getNumberOfClusters());
 	}
 	private String createJsonMapData(DataReader jsonData){
 		AbstractMap<String, String> mapFiles = jsonData.getMapParentFile();
@@ -185,35 +191,4 @@ public class ServicesAPI extends HttpServlet {
 			return r;
 		}
 	}
-
-	private String getParam(Part part) throws IOException {
-		StringBuilder stringBuilder = new StringBuilder();
-		BufferedReader bufferedReader = null;
-		try {
-			InputStream inputStream = part.getInputStream();
-			if (inputStream != null) {
-				bufferedReader = new BufferedReader(new InputStreamReader(
-						inputStream));
-				char[] charBuffer = new char[128];
-				int bytesRead = -1;
-				while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
-					stringBuilder.append(charBuffer, 0, bytesRead);
-				}
-			} else {
-				stringBuilder.append("");
-			}
-		} catch (IOException ex) {
-			throw ex;
-		} finally {
-			if (bufferedReader != null) {
-				try {
-					bufferedReader.close();
-				} catch (IOException ex) {
-					throw ex;
-				}
-			}
-		}
-		return stringBuilder.toString();
-	}
-
 }

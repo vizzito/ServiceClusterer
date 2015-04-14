@@ -47,14 +47,9 @@ public class ClusteringDistanceStrategy extends ClusteringStrategy{
 			dataset.add(new DenseInstance(1.0,newInst));
 		}
 		
-		//StringToWordVector filter = new StringToWordVector();
 		try {
-		//	filter.setInputFormat(dataset);
-		//	Instances dataFiltered = Filter.useFilter(dataset, filter);
 			AbstractClusterer clusterer = getClusterer();
-		
 			clusterer.buildClusterer(dataset);
-			
 			Hashtable<Integer, List<String>> clusterInstances = new Hashtable<Integer, List<String>>();
 			Hashtable<String, Integer> OpCluster = new Hashtable<String, Integer>();
 			for (int i = 0; i < dataset.numInstances(); i++) {

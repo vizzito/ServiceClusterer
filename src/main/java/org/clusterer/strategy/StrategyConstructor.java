@@ -7,13 +7,13 @@ import weka.clusterers.SimpleKMeans;
 public class StrategyConstructor {
 	
 	
-	public static ClusteringStrategy getStrategy(String strategyName) throws Exception{
+	public static ClusteringStrategy getStrategy(String strategyName, Integer numberCluster) throws Exception{
 		ClusteringStrategy strategy;
 		switch(strategyName){
 		case "hierarchy":return new ClusteringHierarchyStrategy();
 		case "kmeans":{
 			SimpleKMeans kmeans = new SimpleKMeans();
-			kmeans.setNumClusters(3);
+			kmeans.setNumClusters(numberCluster);
 			strategy = new ClusteringDistanceStrategy();
 			strategy.setClusterer(kmeans);
 			return strategy;
@@ -21,7 +21,7 @@ public class StrategyConstructor {
 		case "em":
 			{
 				EM em = new EM();
-				em.setNumClusters(17);
+				em.setNumClusters(numberCluster);
 				strategy = new ClusteringDistanceStrategy();
 				strategy.setClusterer(em);
 				return strategy;

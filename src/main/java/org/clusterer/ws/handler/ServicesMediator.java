@@ -22,20 +22,13 @@ public class ServicesMediator {
 		private ClusteringHandler ch;
 		private OperarionSimilarityHandler osh;
 		private List<URL> WSDLLocations;
-		
+		private Integer clusterNumber;
 		private HashMap<String, Object> clusteredInfo;
 		AbstractMap <Pair,Double> relatedOperations;
 		private double topThreshold;
 		private double bottomThreshold;
 		private String clusteringStrategy;
-    	public String getClusteringStrategy() {
-			return clusteringStrategy;
-		}
-
-		public void setClusteringStrategy(String clusteringStrategy) {
-			this.clusteringStrategy = clusteringStrategy;
-		}
-
+    	
 		public ServicesMediator(List<URL> WSDLLocations, double botThreshold,double topThreshold){
     		this.WSDLLocations=WSDLLocations;
     		this.topThreshold=topThreshold;
@@ -47,14 +40,9 @@ public class ServicesMediator {
     	}
     	
     	private void doClustering() throws Exception {
-//    		if (true){
-//    		ClusteringHierarchyStrategy strategy	= new ClusteringHierarchyStrategy();
-//    		ISimilarityFunction function = new OverlappingSimilarityFunction(topThreshold);
-//    		strategy.setSimilarityFunction(function);
-    		ClusteringStrategy strategy = StrategyConstructor.getStrategy(clusteringStrategy);
+    		ClusteringStrategy strategy = StrategyConstructor.getStrategy(getClusteringStrategy(),getClusterNumber());
     		strategy.setThreshold(topThreshold);
 			ch.setClustererStrategy(strategy);
-//    		}
     		// operaciones agrupadas por similitud
     		clusteredInfo=ch.clusterWSDLDocumentsForCluster(WSDLLocations, topThreshold);
     		
@@ -70,14 +58,10 @@ public class ServicesMediator {
     			System.out.println("ops: " + lo.toString());
     			System.out.println("**************************************");
     		}
-    		
-    		
+    		setClusterNumber(inum++);
     	}
     	
     	private void doSimilRelations() {
-//    		ClusteringStrategy strategy = StrategyConstructor.getStrategy(clusteringStrategy);
-//    		strategy.setThreshold(topThreshold);
-//			ch.setClustererStrategy(strategy);
     		relatedOperations=osh.generateOperationSimilarity(WSDLLocations,10,bottomThreshold,topThreshold);
     		
     		System.out.println("Relaciones entre operaciones");
@@ -87,16 +71,12 @@ public class ServicesMediator {
     			
     		}
     		
-    		
     		System.out.println("Relaciones entre operaciones adyacentes: ");
     		for (Iterator<Entry<String, Set<String>>> i=osh.getOpSimilSet().entrySet().iterator() ;i.hasNext();) {
     			Entry<String, Set<String>> ent=i.next();
     			System.out.println("Par ad"  + ent.getKey() + " links: " +  ent.getValue() );
-    			
     		}
-    		
     	}
-    	
     	    	
     	public void doAllInferences() {
     		try {
@@ -132,4 +112,19 @@ public class ServicesMediator {
     		return osh.getOpSimilSet().get(op);
     	}
 
+		public Integer getClusterNumber() {
+			return clusterNumber;
+		}
+
+		public void setClusterNumber(Integer clusterNumber) {
+			this.clusterNumber = clusterNumber;
+		}
+
+		public String getClusteringStrategy() {
+			return clusteringStrategy;
+		}
+
+		public void setClusteringStrategy(String clusteringStrategy) {
+			this.clusteringStrategy = clusteringStrategy;
+		}
 }

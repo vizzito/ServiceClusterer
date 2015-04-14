@@ -22,7 +22,7 @@ import org.clusterer.ws.handler.ServicesMediator;
 
 
 public class HEBServiceAdapter implements DataReader {
-
+	int numberOfClusters;
     int[] parentNodes;
     int[][] adjacencyList;
     AbstractMap <Integer,String> mapOpsIS = new HashMap<Integer,String>();
@@ -30,25 +30,23 @@ public class HEBServiceAdapter implements DataReader {
     AbstractMap <String, String> mapParentFile = new HashMap<String, String>();
 
 	@SuppressWarnings("unchecked")
-	public HEBServiceAdapter(List<URL> WSDLLocations, double botThreshold,double topThreshold,String clusteringStrategy) throws IOException {
+	public HEBServiceAdapter(List<URL> WSDLLocations, double botThreshold,double topThreshold,String clusteringStrategy, Integer clusterCount) throws IOException {
     	
     	ServicesMediator serMed=new ServicesMediator(WSDLLocations, botThreshold, topThreshold);
     	serMed.setClusteringStrategy(clusteringStrategy);
+    	serMed.setClusterNumber(clusterCount);
     	serMed.doAllInferences();
+    	numberOfClusters = serMed.getClusterNumber();
     	HashMap<String, Object> clusteredInfo= serMed.getClusteredOperations();
     	mapParentFile = (AbstractMap<String, String>) clusteredInfo.get("mapFiles");
-    	List<List<Operation>> res =  (List<List<Operation>>) clusteredInfo.get("clusterOperations");
-    	
+    	List<List<Operation>> res =  (List<List<Operation>>) clusteredInfo.get("clusterOperations");    	
     	int cantOp=0;
     	for (Iterator<List<Operation>> i=res.iterator() ;i.hasNext();) 
     		cantOp+=i.next().size();
 			
     	//raiz + grupos de servicios + cant operaciones
     	parentNodes = new int[1+res.size()+cantOp];
-    	
     	parentNodes[0]=-1; //raiz sin padre
-    	
-    	
     	for (int i=1;i<= res.size();i++)
     		parentNodes[i]=0;	//los grupos de operaciones tienen a la raiz "0" como padre
     	
@@ -66,10 +64,6 @@ public class HEBServiceAdapter implements DataReader {
     		igroup++;    		
     	}
     	
-      
-    	
-    	AbstractMap <Pair,Double> res2=serMed.getRelatedOperations();
-    	
         adjacencyList = new int[getNodesCount()][];
         
         for (int i = 0; i < adjacencyList.length; i++) {
@@ -80,16 +74,11 @@ public class HEBServiceAdapter implements DataReader {
             		adjacencyList[i] = new int[relops.size()];
             		int j=0;
             		for (String oper : relops ) {
-//            			if(mapOpsSI.get(oper)==null)
-//            				adjacencyList[i] = new int[0];
-//            				else
             			adjacencyList[i][j++]=mapOpsSI.get(oper);
             		}
             	}
             }
         }
-        
-        
         
         System.out.println("Parent Nodes");
         for (int i=0; i < parentNodes.length ; i++ )
@@ -102,7 +91,6 @@ public class HEBServiceAdapter implements DataReader {
         	for (int j=0; j < fila.length ; j++ )
         		System.out.print(fila[j] + ",");
         }
-        
         
    }
 
@@ -133,5 +121,10 @@ public class HEBServiceAdapter implements DataReader {
 	public AbstractMap<Integer, String> getNamesMap() {
 		// TODO Auto-generated method stub
 		return mapOpsIS;
+	}
+
+	public int getNumberOfClusters() {
+		// TODO Auto-generated method stub
+		return numberOfClusters;
 	}
 }
