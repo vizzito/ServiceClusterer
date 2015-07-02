@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import net.sf.json.JSONObject;
+
 import org.clusterer.similarity.ISimilarityFunction;
 import org.clusterer.similarity.OverlappingSimilarityFunction;
 import org.clusterer.strategy.ClusteringHierarchyStrategy;
@@ -23,6 +25,7 @@ public class ServicesMediator {
 		private OperarionSimilarityHandler osh;
 		private List<URL> WSDLLocations;
 		private Integer clusterNumber;
+		private JSONObject validationInfo;
 		private HashMap<String, Object> clusteredInfo;
 		AbstractMap <Pair,Double> relatedOperations;
 		private double topThreshold;
@@ -59,6 +62,7 @@ public class ServicesMediator {
     			System.out.println("**************************************");
     		}
     		setClusterNumber(inum++);
+    		setValidationInfo(strategy.validateCluster());
     	}
     	
     	private void doSimilRelations() {
@@ -126,5 +130,13 @@ public class ServicesMediator {
 
 		public void setClusteringStrategy(String clusteringStrategy) {
 			this.clusteringStrategy = clusteringStrategy;
+		}
+
+		public JSONObject getValidationInfo() {
+			return validationInfo;
+		}
+
+		public void setValidationInfo(JSONObject validationInfo) {
+			this.validationInfo = validationInfo;
 		}
 }

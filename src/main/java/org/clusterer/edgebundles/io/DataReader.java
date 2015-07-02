@@ -4,6 +4,8 @@ import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Hashtable;
 
+import net.sf.json.JSONObject;
+
 /**
  * <p>Title: Data Reader Interface</p>
  *
@@ -41,5 +43,6 @@ public interface DataReader {
     AbstractMap<Integer,String> getNamesMap();
     AbstractMap<String,String> getMapParentFile();
     int getNumberOfClusters();
+    JSONObject getValidationInfo();
 
 }

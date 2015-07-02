@@ -14,7 +14,7 @@ public class StrategyConstructor {
 		case "kmeans":{
 			SimpleKMeans kmeans = new SimpleKMeans();
 			kmeans.setNumClusters(numberCluster);
-			strategy = new ClusteringDistanceStrategy();
+			strategy = new KmeansStrategy();
 			strategy.setClusterer(kmeans);
 			return strategy;
 		}

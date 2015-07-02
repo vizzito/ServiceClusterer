@@ -13,6 +13,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import net.sf.json.JSONObject;
+
 import org.ow2.easywsdl.wsdl.api.Operation;
 import org.ow2.easywsdl.wsdl.impl.wsdl11.OperationImpl;
 import org.clusterer.util.Pair;
@@ -22,6 +24,7 @@ import org.clusterer.ws.handler.ServicesMediator;
 
 
 public class HEBServiceAdapter implements DataReader {
+	JSONObject validationInfo;
 	int numberOfClusters;
     int[] parentNodes;
     int[][] adjacencyList;
@@ -37,6 +40,7 @@ public class HEBServiceAdapter implements DataReader {
     	serMed.setClusterNumber(clusterCount);
     	serMed.doAllInferences();
     	numberOfClusters = serMed.getClusterNumber();
+    	validationInfo = serMed.getValidationInfo();
     	HashMap<String, Object> clusteredInfo= serMed.getClusteredOperations();
     	mapParentFile = (AbstractMap<String, String>) clusteredInfo.get("mapFiles");
     	List<List<Operation>> res =  (List<List<Operation>>) clusteredInfo.get("clusterOperations");    	
@@ -127,4 +131,12 @@ public class HEBServiceAdapter implements DataReader {
 		// TODO Auto-generated method stub
 		return numberOfClusters;
 	}
+
+	@Override
+	public JSONObject getValidationInfo() {
+		// TODO Auto-generated method stub
+		return validationInfo;
+	}
+
+	
 }

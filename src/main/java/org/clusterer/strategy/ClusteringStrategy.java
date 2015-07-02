@@ -4,6 +4,8 @@ package org.clusterer.strategy;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.sf.json.JSONObject;
+
 import org.clusterer.similarity.ISimilarityFunction;
 import org.clusterer.similarity.OverlappingSimilarityFunction;
 import org.clusterer.util.DataTypeNode;
@@ -108,6 +110,7 @@ public abstract class ClusteringStrategy {
 	}
 
 	public abstract void generateCluster();
+	public abstract JSONObject validateCluster();
 	public AbstractClusterer getClusterer() {
 		return clusterer;
 	}

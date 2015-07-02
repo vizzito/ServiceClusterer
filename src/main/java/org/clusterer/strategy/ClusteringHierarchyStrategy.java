@@ -3,6 +3,8 @@ package org.clusterer.strategy;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.sf.json.JSONObject;
+
 import org.clusterer.similarity.ISimilarityFunction;
 import org.clusterer.similarity.OverlappingSimilarityFunction;
 import org.clusterer.util.DataTypeNode;
@@ -105,5 +107,11 @@ public class ClusteringHierarchyStrategy extends ClusteringStrategy {
 			return tempNode;
 		}
 		return null;
+	}
+	@Override
+	public JSONObject validateCluster() {
+		return null;
+		// TODO Auto-generated method stub
+		
 	}
 }

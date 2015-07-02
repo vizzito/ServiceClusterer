@@ -137,6 +137,7 @@ public class ServicesAPI extends HttpServlet {
 		out.println(jsonTreeMap);
 		out.println(jsonFileMap);
 		out.println(data.getNumberOfClusters());
+		out.println(data.getValidationInfo());
 	}
 	private String createJsonMapData(DataReader jsonData){
 		AbstractMap<String, String> mapFiles = jsonData.getMapParentFile();
