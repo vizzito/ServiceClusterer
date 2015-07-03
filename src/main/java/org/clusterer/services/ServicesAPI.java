@@ -25,6 +25,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.clusterer.edgebundles.io.DataReader;
 import org.clusterer.edgebundles.io.HEBServiceAdapter;
 import org.clusterer.services.response.VisualTreeResponse;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +35,7 @@ import com.google.gson.Gson;
 
 //@MultipartConfig
 @Controller
+@EnableAutoConfiguration
 @RequestMapping("/services")
 public class ServicesAPI //extends HttpServlet
 {
