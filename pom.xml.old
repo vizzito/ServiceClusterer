@@ -1,26 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>org.springframework</groupId>
-    <artifactId>serviceClusterer</artifactId>
-    <version>0.1.0</version>
-    <url>http://maven.apache.org</url>
-    
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.5.RELEASE</version>
-    </parent>
-
-    <properties>
-        <java.version>1.7</java.version>
-    </properties>
-
-
-    <build>
-    	<sourceDirectory>src/main/java</sourceDirectory>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ServiceClusterer</groupId>
+	<artifactId>ServiceClusterer</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>ServiceClusterer</name>
+	<description>ServiceClusterer</description>
+	<packaging>war</packaging>
+	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
 		<resources>
 			<resource>
 				<directory>src/main/java</directory>
@@ -32,25 +20,59 @@
 				<directory>src/main/resources</directory>
 			</resource>
 		</resources>
-    
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-    
-    <dependencies>
-    <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.apache.tomcat</groupId> -->
-<!-- 			<artifactId>tomcat-servlet-api</artifactId> -->
-<!-- 			<version>8.0.3</version> -->
-<!-- 		</dependency> -->
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+				<warSourceDirectory>WebContent</warSourceDirectory> 
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<artifactId>maven-war-plugin</artifactId> -->
+<!-- 				<version>2.3</version> -->
+<!-- 				<configuration> -->
+<!-- 					<warSourceDirectory>WebContent</warSourceDirectory> -->
+<!-- 					<failOnMissingWebXml>false</failOnMissingWebXml> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<url>http://localhost:8080/manager/text</url>
+					<warFile>target/ServiceClusterer-0.0.1-SNAPSHOT.war</warFile>
+					<server>tomcat</server>
+					<username>root</username>
+					<password>root</password>
+					<path>/ServiceClusterer</path>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-servlet-api</artifactId>
+			<version>8.0.3</version>
+		</dependency>
 
 		<dependency>
 			<groupId>net.sf.json-lib</groupId>
@@ -134,5 +156,4 @@
 		</dependency>
 
 	</dependencies>
-
 </project>
