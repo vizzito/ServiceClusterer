@@ -132,7 +132,6 @@
 			<artifactId>weka-dev</artifactId>
 			<version>3.7.10</version>
 		</dependency>
-
 	</dependencies>
 
 </project>
