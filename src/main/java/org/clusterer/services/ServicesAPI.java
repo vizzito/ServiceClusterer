@@ -40,45 +40,6 @@ public class ServicesAPI //extends HttpServlet
 	private static String CLUSTERING_STRATEGY = "";
 	private static Integer CLUSTER_COUNT = 0;
 
-	public ServicesAPI()
-	{
-		//loadPropertyFile();
-	}
-
-	//	private void loadPropertyFile()
-	//	{
-	//		final Properties prop = new Properties();
-	//		InputStream input = null;
-	//		try
-	//		{
-	//			final String filename = "config.properties";
-	//			input = ServicesAPI.class.getClassLoader().getResourceAsStream(filename);
-	//			if (input == null)
-	//			{
-	//				System.out.println("Sorry, unable to find " + filename);
-	//				return;
-	//			}
-	//			prop.load(input);
-	//		}
-	//		catch (final IOException ex)
-	//		{
-	//			ex.printStackTrace();
-	//		}
-	//		finally
-	//		{
-	//			if (input != null)
-	//			{
-	//				try
-	//				{
-	//					input.close();
-	//				}
-	//				catch (final IOException e)
-	//				{
-	//					e.printStackTrace();
-	//				}
-	//			}
-	//		}
-	//	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -129,7 +90,7 @@ public class ServicesAPI //extends HttpServlet
 		out.println(jsonFileMap);
 		out.println(data.getNumberOfClusters());
 		out.println(data.getValidationInfo());
-
+		out.println(listFiles.size());
 
 		for (final MultipartFile mFile : listFiles)
 		{

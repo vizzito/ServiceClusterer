@@ -11,17 +11,21 @@ import org.clusterer.util.DataTypeNode;
 import org.clusterer.util.OperationNode;
 import org.ow2.easywsdl.wsdl.api.Operation;
 
-public class ClusteringHierarchyStrategy extends ClusteringStrategy {
-	private ISimilarityFunction function = new OverlappingSimilarityFunction(
-			getThreshold());
-	
-	public ClusteringHierarchyStrategy() {
+
+public class ClusteringHierarchyStrategy extends ClusteringStrategy
+{
+	private ISimilarityFunction function = new OverlappingSimilarityFunction(getThreshold());
+
+	public ClusteringHierarchyStrategy()
+	{
 		dataTypeNodes = new LinkedList<DataTypeNode>();
 		operationNodes = new LinkedList<OperationNode>();
 		unmergedNodes = new LinkedList<DataTypeNode>();
 		mergedNodes = new LinkedList<DataTypeNode>();
 	}
-	public ClusteringHierarchyStrategy(List<Operation> operations) {
+
+	public ClusteringHierarchyStrategy(final List<Operation> operations)
+	{
 		this.operations = operations;
 		dataTypeNodes = new LinkedList<DataTypeNode>();
 		operationNodes = new LinkedList<OperationNode>();
@@ -29,8 +33,8 @@ public class ClusteringHierarchyStrategy extends ClusteringStrategy {
 		mergedNodes = new LinkedList<DataTypeNode>();
 	}
 
-	public ClusteringHierarchyStrategy(List<Operation> operations,
-			ISimilarityFunction similarityFunction) {
+	public ClusteringHierarchyStrategy(final List<Operation> operations, final ISimilarityFunction similarityFunction)
+	{
 		this.operations = operations;
 		dataTypeNodes = new LinkedList<DataTypeNode>();
 		operationNodes = new LinkedList<OperationNode>();
@@ -38,12 +42,14 @@ public class ClusteringHierarchyStrategy extends ClusteringStrategy {
 		mergedNodes = new LinkedList<DataTypeNode>();
 		function = similarityFunction;
 	}
-	
+
 	@Override
-	public void generateCluster() {
-		for (Operation op : getOperations()) {
+	public void generateCluster()
+	{
+		for (final Operation op : getOperations())
+		{
 			// Create OperationNode
-			OperationNode operation = new OperationNode(op);
+			final OperationNode operation = new OperationNode(op);
 
 			// Set input node
 			DataTypeNode input = new DataTypeNode(op.getInput().getElement());
@@ -52,9 +58,13 @@ public class ClusteringHierarchyStrategy extends ClusteringStrategy {
 			input.setParameterType(DataTypeNode.INPUT);
 
 			if (!isSimilar(input))
+			{
 				dataTypeNodes.add(input);
+			}
 			else
+			{
 				input = updateNode(input, op);
+			}
 
 			// Set output node
 			DataTypeNode output = new DataTypeNode(op.getOutput().getElement());
@@ -63,9 +73,13 @@ public class ClusteringHierarchyStrategy extends ClusteringStrategy {
 			output.addRelatedOperation(op);
 			output.setParameterType(DataTypeNode.OUTPUT);
 			if (!isSimilar(output))
+			{
 				dataTypeNodes.add(output);
+			}
 			else
+			{
 				output = updateNode(output, op);
+			}
 
 			// Set input & output to the created OperationNode
 			operation.setInput(input);
@@ -77,41 +91,60 @@ public class ClusteringHierarchyStrategy extends ClusteringStrategy {
 
 	}
 
-	protected boolean isSimilar(DataTypeNode node) {
-		for (DataTypeNode n : dataTypeNodes)
+	protected boolean isSimilar(final DataTypeNode node)
+	{
+		for (final DataTypeNode n : dataTypeNodes)
+		{
 			if (function.getSimilarity(n, node) >= getThreshold())
+			{
 				return true;
+			}
+		}
 		return false;
 	}
 
-	private DataTypeNode getSimilarNode(DataTypeNode node) {
-		for (DataTypeNode n : dataTypeNodes) {
+	private DataTypeNode getSimilarNode(final DataTypeNode node)
+	{
+		for (final DataTypeNode n : dataTypeNodes)
+		{
 			if (function.getSimilarity(n, node) >= getThreshold())
+			{
 				return n;
+			}
 		}
 		return null;
 	}
 
-	public ISimilarityFunction getSimilarityFunction() {
+	public ISimilarityFunction getSimilarityFunction()
+	{
 		return function;
 	}
 
-	public void setSimilarityFunction(ISimilarityFunction function) {
+	public void setSimilarityFunction(final ISimilarityFunction function)
+	{
 		this.function = function;
 	}
-	
-	public DataTypeNode updateNode(DataTypeNode node, Operation op) {
-		DataTypeNode tempNode = getSimilarNode(node);
-		if (tempNode != null) {
+
+	public DataTypeNode updateNode(final DataTypeNode node, final Operation op)
+	{
+		final DataTypeNode tempNode = getSimilarNode(node);
+		if (tempNode != null)
+		{
 			tempNode.addRelatedOperation(op);
 			return tempNode;
 		}
 		return null;
 	}
+
 	@Override
-	public JSONObject validateCluster() {
-		return null;
-		// TODO Auto-generated method stub
-		
+	public JSONObject validateCluster()
+	{
+		final JSONObject json = new JSONObject();
+		json.element("squaredError", 0);
+		json.element("intraDistance", 0);
+		json.element("interDistance", 0);
+
+		return json;
+
 	}
 }

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @SpringBootApplication
 @Configuration
-@ComponentScan("org.clusterer.*")
+@ComponentScan("org.clusterer.services")
 public class Runner
 {
 	public static void main(final String[] args)

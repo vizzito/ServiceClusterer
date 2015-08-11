@@ -3,6 +3,7 @@ package org.clusterer.strategy;
 import java.util.ArrayList;
 
 import net.sf.json.JSONObject;
+import weka.clusterers.EM;
 import weka.clusterers.SimpleKMeans;
 import weka.core.DistanceFunction;
 import weka.core.EuclideanDistance;
@@ -10,33 +11,87 @@ import weka.core.Instance;
 import weka.core.Instances;
 
 
-public class KmeansStrategy extends ClusteringDistanceStrategy
+public class EMStrategy extends ClusteringDistanceStrategy
 {
+
+
+	//	private void EM_Init(final Instances inst) throws Exception
+	//	{
+	//		SimpleKMeans bestK = null;
+	//		double bestSqE = 1.7976931348623157E+308D;
+	//		for (int i = 0; i < 10; ++i)
+	//		{
+	//			final SimpleKMeans sk = new SimpleKMeans();
+	//			sk.setSeed(10);
+	//			sk.setNumClusters(this.m_num_clusters);
+	//			sk.setNumExecutionSlots(this.m_executionSlots);
+	//			sk.setDisplayStdDevs(true);
+	//			sk.buildClusterer(inst);
+	//			if (sk.getSquaredError() < bestSqE)
+	//			{
+	//				bestSqE = sk.getSquaredError();
+	//				bestK = sk;
+	//			}
+	//
+	//		}
+	//		final Instances centers = bestK.getClusterCentroids();
+	//	}
 
 	@Override
 	public JSONObject validateCluster()
 	{
 		// getClusterer().
-		final SimpleKMeans kmeansClusterer = (SimpleKMeans) getClusterer();
+		final EM emClusterer = (EM) getClusterer();
 
-		final Instances centroids = kmeansClusterer.getClusterCentroids();
+		SimpleKMeans bestK = null;
+		double bestSqE = 1.7976931348623157E+308D;
+		for (int i = 0; i < 10; ++i)
+		{
+			final SimpleKMeans sk = new SimpleKMeans();
+			sk.setSeed(10);
+			try
+			{
+				sk.setNumClusters(emClusterer.getNumClusters());
+			}
+			catch (final Exception e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			sk.setNumExecutionSlots(1);
+			sk.setDisplayStdDevs(true);
+			try
+			{
+				sk.buildClusterer(dataset);
+			}
+			catch (final Exception e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (sk.getSquaredError() < bestSqE)
+			{
+				bestSqE = sk.getSquaredError();
+				bestK = sk;
+			}
 
+		}
+		final Instances centroids = bestK.getClusterCentroids();
 
 		final DistanceFunction euclidean = new EuclideanDistance(dataset);
-		final int numClusters = kmeansClusterer.getNumClusters();
-		final Double squaredError = getEsquaredErrors(numClusters, euclidean, centroids);
-		final Double squaredError2 = getEsquaredErrors2(numClusters, euclidean, centroids);
+		final int numClusters = emClusterer.getNumClusters();
+		//		final Double squaredError = getEsquaredErrors(numClusters, euclidean, centroids);
+		//		final Double squaredError2 = getEsquaredErrors2(numClusters, euclidean, centroids);
 
 		final Double interCluster = getInterCluster(numClusters, euclidean, centroids);
-		final Double interCluster2 = getInterCluster2(numClusters, euclidean, centroids);
-		final Double interCluster3 = getInterCluster3(numClusters, euclidean, centroids);
-		final Double interCluster4 = getInterCluster4(numClusters, euclidean, centroids);
-		final Double interCluster5 = getInterCluster5(numClusters, euclidean, centroids);
+		//		final Double interCluster2 = getInterCluster2(numClusters, euclidean, centroids);
+		//		final Double interCluster3 = getInterCluster3(numClusters, euclidean, centroids);
+		//		final Double interCluster4 = getInterCluster4(numClusters, euclidean, centroids);
+		//		final Double interCluster5 = getInterCluster5(numClusters, euclidean, centroids);
 		final Double intraCluster = getIntraCluster(numClusters, euclidean);
-		final Double intraCluster2 = getIntraCluster2(numClusters, euclidean, centroids);
 
 		final JSONObject json = new JSONObject();
-		json.element("squaredError", squaredError);
+		json.element("squaredError", bestK.getSquaredError());
 		json.element("intraDistance", intraCluster);
 		json.element("interDistance", interCluster);
 
@@ -51,7 +106,7 @@ public class KmeansStrategy extends ClusteringDistanceStrategy
 	{
 		double sum = 0;
 		double interCluster = 0;
-		for (int i = 0; i <= numClusters - 1; i++)
+		for (int i = 0; i < numClusters - 1; i++)
 		{
 			sum = 0;
 			for (int j = i + 1; j < numClusters; j++)
@@ -61,7 +116,7 @@ public class KmeansStrategy extends ClusteringDistanceStrategy
 			interCluster += sum;
 		}
 		sum = 0;
-		for (int i = 1; i <= numClusters - 1; i++)
+		for (int i = 1; i < numClusters - 1; i++)
 		{
 			sum += i;
 		}
@@ -182,9 +237,9 @@ public class KmeansStrategy extends ClusteringDistanceStrategy
 			double sum = 0;
 			final ArrayList<Instance> clusterInstances = hashClustering.get(i);
 			final int sizeCluster = clusterInstances.size();
-			for (int z = 0; z < sizeCluster; z++)
+			for (int z = 0; z < clusterInstances.size(); z++)
 			{
-				for (int t = 0; t < sizeCluster; t++)
+				for (int t = 0; t < clusterInstances.size(); t++)
 				{
 					final Double dist = euclidean.distance(clusterInstances.get(t), clusterInstances.get(z));
 					sum += dist;
@@ -194,25 +249,6 @@ public class KmeansStrategy extends ClusteringDistanceStrategy
 			intraCluster += sum / sizeCluster;
 		}
 		return intraCluster / numClusters;
-	}
-
-	private Double getIntraCluster2(final int numClusters, final DistanceFunction euclidean, final Instances centroids)
-	{
-
-		double intraCluster = 0;
-		for (int i = 0; i < numClusters; i++)
-		{
-			double sum = 0;
-			final ArrayList<Instance> clusterInstances = hashClustering.get(i);
-			final int sizeCluster = clusterInstances.size();
-			for (int z = 0; z < sizeCluster; z++)
-			{
-				final Double dist = euclidean.distance(centroids.get(i), clusterInstances.get(z));
-				sum += dist;
-			}
-			intraCluster += sum;
-		}
-		return intraCluster;
 	}
 
 	private double getEsquaredErrors(final int numClusters, final DistanceFunction euclidean, final Instances centroids)
@@ -254,5 +290,4 @@ public class KmeansStrategy extends ClusteringDistanceStrategy
 
 		return error / numClusters;
 	}
-
 }
