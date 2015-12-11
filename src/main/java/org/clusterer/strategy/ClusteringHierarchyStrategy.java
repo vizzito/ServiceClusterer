@@ -43,7 +43,7 @@ public class ClusteringHierarchyStrategy extends ClusteringStrategy
 		function = similarityFunction;
 	}
 
-	@Override
+
 	public void generateCluster()
 	{
 		for (final Operation op : getOperations())
@@ -66,10 +66,7 @@ public class ClusteringHierarchyStrategy extends ClusteringStrategy
 				input = updateNode(input, op);
 			}
 
-			// Set output node
 			DataTypeNode output = new DataTypeNode(op.getOutput().getElement());
-			// DataTypeNode output = new
-			// DataTypeNode(op.getOutput().getParts());
 			output.addRelatedOperation(op);
 			output.setParameterType(DataTypeNode.OUTPUT);
 			if (!isSimilar(output))
