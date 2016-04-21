@@ -23,57 +23,6 @@ public class EMStrategy extends ClusteringDistanceStrategy
 		// getClusterer().
 		final EM emClusterer = (EM) getClusterer();
 
-
-		//		
-		//		SimpleKMeans bestKx = null;
-		//		double bestSqEx = 1.7976931348623157E+308D;
-		//		for (int i = 0; i < 10; ++i)
-		//		{
-		//			final SimpleKMeans sk = new SimpleKMeans();
-		//			sk.setSeed(this.m_rr.nextInt());
-		//			try
-		//			{
-		//				sk.setNumClusters(emClusterer.getNumClusters());
-		//			}
-		//			catch (final Exception e)
-		//			{
-		//				// TODO Auto-generated catch block
-		//				e.printStackTrace();
-		//			}
-		//			sk.setNumExecutionSlots(this.m_executionSlots);
-		//			sk.setDisplayStdDevs(true);
-		//			try
-		//			{
-		//				sk.buildClusterer(dataset);
-		//			}
-		//			catch (final Exception e)
-		//			{
-		//				// TODO Auto-generated catch block
-		//				e.printStackTrace();
-		//			}
-		//			if (sk.getSquaredError() < bestSqEx)
-		//			{
-		//				bestSqEx = sk.getSquaredError();
-		//				bestKx = sk;
-		//			}
-		//
-		//		}
-		//
-		//
-		//		try
-		//		{
-		//			emClusterer.buildClusterer(dataset);
-		//			emClusterer.
-		//		}
-		//		catch (Exception e1)
-		//		{
-		//			// TODO Auto-generated catch block
-		//			e1.printStackTrace();
-		//		}
-
-
-
-
 		SimpleKMeans bestK = null;
 		double bestSqE = 1.7976931348623157E+308D;
 		for (int i = 100; i < 110; ++i)
@@ -212,59 +161,5 @@ public class EMStrategy extends ClusteringDistanceStrategy
 		}
 		return total;
 	}
-
-
-	//	private Double getInterCluster(final int numClusters, final DistanceFunction euclidean, final Instances centroids)
-	//	{
-	//		double sum = 0;
-	//		double interCluster = 0;
-	//		for (int i = 0; i < numClusters - 1; i++)
-	//		{
-	//			sum = 0;
-	//			for (int j = i + 1; j < numClusters; j++)
-	//			{
-	//				sum += euclidean.distance(centroids.get(i), centroids.get(j));
-	//			}
-	//			interCluster += sum;
-	//		}
-	//		sum = 0;
-	//		for (int i = 1; i < numClusters - 1; i++)
-	//		{
-	//			sum += i;
-	//		}
-	//		if (numClusters == 1)
-	//		{
-	//			return (double) 0;
-	//		}
-	//		else
-	//		{
-	//			return interCluster / sum;
-	//		}
-	//	}
-	//
-	//
-	//
-	//	private Double getIntraCluster(final int numClusters, final DistanceFunction euclidean)
-	//	{
-	//
-	//		double intraCluster = 0;
-	//		for (int i = 0; i < numClusters; i++)
-	//		{
-	//			double sum = 0;
-	//			final ArrayList<Instance> clusterInstances = hashClustering.get(i);
-	//			final int sizeCluster = clusterInstances.size();
-	//			for (int z = 0; z < clusterInstances.size(); z++)
-	//			{
-	//				for (int t = 0; t < clusterInstances.size(); t++)
-	//				{
-	//					final Double dist = euclidean.distance(clusterInstances.get(t), clusterInstances.get(z));
-	//					sum += dist;
-	//				}
-	//
-	//			}
-	//			intraCluster += sum / sizeCluster;
-	//		}
-	//		return intraCluster / numClusters;
-	//	}
 
 }
